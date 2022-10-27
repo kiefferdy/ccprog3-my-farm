@@ -16,7 +16,7 @@ public class SeedShop {
         System.out.println("    2. Carrot: " + this.rootCrops.getCarrotBuyPrice() + " Object Coins");
         System.out.println("    3. Potato: " + this.rootCrops.getPotatoBuyPrice() + " Object Coins");
         System.out.println("B. FLOWERS");
-        System.out.println("    4. Turnips: " + this.flowers.getTurnipsBuyPrice() + " Object Coins");
+        System.out.println("    4. Tulip: " + this.flowers.getTulipBuyPrice() + " Object Coins");
         System.out.println("    5. Rose: " + this.flowers.getRoseBuyPrice() + " Object Coins");
         System.out.println("    6. Sunflower: " + this.flowers.getSunflowerBuyPrice() + " Object Coins");
         System.out.println("C. FRUIT TREES");
@@ -37,7 +37,7 @@ public class SeedShop {
 
                 switch(choice) {
                     case 1:
-                        buyTurnipCrop(amount);
+                        buyTurnip(amount);
                         break;
                     case 2:
                         buyCarrot(amount);
@@ -46,7 +46,7 @@ public class SeedShop {
                         buyPotato(amount);
                         break;
                     case 4:
-                        buyTurnipFlower(amount);
+                        buyTulip(amount);
                         break;
                     case 5:
                         buyRose(amount);
@@ -73,7 +73,7 @@ public class SeedShop {
         sc.close();
     }
 
-    public boolean buyTurnipCrop(int amount) {
+    public boolean buyTurnip(int amount) {
         boolean result = false;
         if(amount > 0) {
             if(amount * this.rootCrops.getTurnipBuyPrice() <= farmer.getObjectCoins()) {
@@ -124,12 +124,12 @@ public class SeedShop {
         return result;
     }
 
-    public boolean buyTurnipFlower(int amount) {
+    public boolean buyTulip(int amount) {
         boolean result = false;
         if(amount > 0) {
-            if(amount * this.flowers.getTurnipsBuyPrice() <= farmer.getObjectCoins()) {
-                farmer.deductObjectCoins(amount * this.flowers.getTurnipsBuyPrice());
-                System.out.println("Bought " + amount + " Turnip Flower seeds!");
+            if(amount * this.flowers.getTulipBuyPrice() <= farmer.getObjectCoins()) {
+                farmer.deductObjectCoins(amount * this.flowers.getTulipBuyPrice());
+                System.out.println("Bought " + amount + " Tulip seeds!");
                 System.out.println("You have " + farmer.getObjectCoins() + " Object Coins left.");
                 result = true;
             }
