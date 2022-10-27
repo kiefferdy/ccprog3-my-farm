@@ -1,5 +1,5 @@
 public class Flowers { 
-    private int turnipsSellPrice = 5;
+    private int tulipSellPrice = 5;
     private int roseSellPrice = 9;
     private int sunflowerSellPrice = 19;
     private int turnipsBuyPrice = 5;
@@ -9,7 +9,7 @@ public class Flowers {
     public Flowers() {
     }
 
-    public int getTurnipsSellPrice() {
+    public int getTulipSellPrice() {
         return this.turnipsSellPrice;
     }
 
@@ -21,7 +21,7 @@ public class Flowers {
         return this.roseSellPrice;
     }
 
-    public int getTurnipsBuyPrice() {
+    public int getTulipBuyPrice() {
         return this.turnipsBuyPrice;
     }
 
