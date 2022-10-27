@@ -2,7 +2,7 @@ public class Flowers {
     private int tulipSellPrice = 5;
     private int roseSellPrice = 9;
     private int sunflowerSellPrice = 19;
-    private int turnipsBuyPrice = 5;
+    private int tulipBuyPrice = 5;
     private int roseBuyPrice = 10;
     private int sunflowerBuyPrice = 20;
 
