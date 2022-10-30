@@ -14,7 +14,11 @@ public class Farmer {
     }
 
     public void displayStats() {
-
+        System.out.println("Name: " + this.username);
+        System.out.println("Level: " + this.level);
+        System.out.println("Current XP: " + this.xp);
+        System.out.println("Object Coins : " + this.objectCoins);
+        System.out.println("Rank: " + this.rank.getRank());
     }
 
     public String getUsername() {
