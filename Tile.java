@@ -30,8 +30,7 @@ public class Tile {
         System.out.printf("\n\tRemaining Water Needs: %d", this.hasCrop ? this.crop.getWaterNeeds() - this.timesWatered : "N/A");
     }
     
-    public void addToCropList(Crop crop) {
-        int count;
+    public boolean addToCropList(Crop crop) {
         for(Crop existingCrop : cropList) {
             if(existingCrop.getName().equals(crop.getName())) {
                 return false;
@@ -94,6 +93,10 @@ public class Tile {
         this.timesWatered++;
         return true;
     }
+
+    public int getTimesWatered() {
+        return this.timesWatered;
+    }
     
     public boolean Fertilize() {
         if(this.hasWitheredCrop) {
@@ -102,6 +105,10 @@ public class Tile {
         }
         this.timesFertilized++;
         return true;
+    }
+
+    public int getTimesFertilized() {
+        return this.timesFertilized;
     }
     
     public int Harvest() {
