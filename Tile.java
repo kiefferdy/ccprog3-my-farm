@@ -5,7 +5,6 @@ public class Tile {
     private int xPos, yPos;
     private boolean isPlowed;
     private boolean hasRock;
-    private boolean hasCrop;
     private Crop crop;
     private ArrayList<Crop> cropList;
     private int daysToHarvest;
@@ -17,7 +16,6 @@ public class Tile {
         this.xPos = xPos;
         this.yPos = yPos;
         this.isPlowed = false;
-        this.hasCrop = false;
     }
     
     public void displayStatus() {
@@ -25,9 +23,9 @@ public class Tile {
         System.out.printf("\n\tHas Been Plowed: %s", this.isPlowed ? "Yes" : "No");
         System.out.printf("\n\tContains Rock: %s", this.hasRock ? "Yes" : "No");
         System.out.printf("\n\tContains Withered Crop: %s", this.hasWitheredCrop ? "Yes" : "No");
-        System.out.printf("\n\tCrop Planted: %s", this.hasCrop ? this.crop.getName() : "N/A");
-        System.out.printf("\n\tTime Until Harvest: %d", this.hasCrop ? this.daysToHarvest : "N/A");
-        System.out.printf("\n\tRemaining Water Needs: %d", this.hasCrop ? this.crop.getWaterNeeds() - this.timesWatered : "N/A");
+        System.out.printf("\n\tCrop Planted: %s", this.crop != null ? this.crop.getName() : "N/A");
+        System.out.printf("\n\tTime Until Harvest: %d", this.crop != null ? this.daysToHarvest : "N/A");
+        System.out.printf("\n\tRemaining Water Needs: %d", this.crop != null ? this.crop.getWaterNeeds() - this.timesWatered : "N/A");
     }
     
     public boolean addToCropList(Crop crop) {
@@ -59,7 +57,16 @@ public class Tile {
         if(daysToHarvest <= 0) {
             this.hasWitheredCrop = true;
         }
+        else if(daysToHarvest == 1) {
+            if(timesWatered < crop.getWaterNeeds() || timesFertilized < crop.getFertilizerNeeds()) {
+                this.hasWitheredCrop = true;
+            }
+        }
         this.daysToHarvest--;
+    }
+
+    public boolean getHasWitheredCrop() {
+        return this.hasWitheredCrop;
     }
     
     public Crop getCrop() {
@@ -125,6 +132,10 @@ public class Tile {
         int produce = rand.nextInt(crop.getMaxProduce() - crop.getMinProduce() + 1);
         produce += crop.getMinProduce();
         return produce;
+    }
+
+    public int getDaysToHarvest() {
+        return this.daysToHarvest;
     }
     
     public int getXPos() {

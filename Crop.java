@@ -10,9 +10,9 @@ public class Crop {
     private int maxProduce;
     private int seedCost;
     private int baseHarvestPrice;
-    private int expYield;
+    private double expYield;
     
-    public Crop(String name, String type, int harvestTime, int waterNeeds, int waterBonusLimit, int fertilizerNeeds, int fertilizerBonusLimit, int minProduce, int maxProduce, int seedCost, int baseHarvestPrice, int expYield) {
+    public Crop(String name, String type, int harvestTime, int waterNeeds, int waterBonusLimit, int fertilizerNeeds, int fertilizerBonusLimit, int minProduce, int maxProduce, int seedCost, int baseHarvestPrice, double expYield) {
         this.name = name;
         this.type = type;
         this.harvestTime = harvestTime;
@@ -67,11 +67,11 @@ public class Crop {
         return this.seedCost;   
     }
     
-    publc int getBaseHarvestPrice() {
+    public int getBaseHarvestPrice() {
         return this.baseHarvestPrice;
     }
     
-    public int getEXPYield() {
+    public double getExpYield() {
         return this.expYield;   
     }
 }
