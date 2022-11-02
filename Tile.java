@@ -117,7 +117,7 @@ public class Tile {
             return -1;
         }
         if(this.daysToHarvest > 0) {
-            System.out.printf("You need to wait %d day(s) to harvest this crop.\n", this.daysToHarvest);
+            System.out.printf("You need to wait %d more day(s) to harvest this crop.\n", this.daysToHarvest);
             return -1;
         }
         
