@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Tile {
@@ -6,7 +5,6 @@ public class Tile {
     private boolean isPlowed;
     private boolean hasRock;
     private Crop crop;
-    private ArrayList<Crop> cropList;
     private int daysToHarvest;
     private int timesWatered;
     private int timesFertilized;
@@ -19,7 +17,7 @@ public class Tile {
     }
     
     public void displayStatus() {
-        System.out.printf("Status of Tile %d, %d", this.xPos, this.yPos);
+        System.out.printf("\nStatus of Tile %d, %d", this.xPos, this.yPos);
         System.out.printf("\n\tHas Been Plowed: %s", this.isPlowed ? "Yes" : "No");
         System.out.printf("\n\tContains Rock: %s", this.hasRock ? "Yes" : "No");
         System.out.printf("\n\tContains Withered Crop: %s", this.hasWitheredCrop ? "Yes" : "No");
@@ -28,28 +26,17 @@ public class Tile {
         System.out.printf("\n\tRemaining Water Needs: %d", this.crop != null ? this.crop.getWaterNeeds() - this.timesWatered : "N/A");
     }
     
-    public boolean addToCropList(Crop crop) {
-        for(Crop existingCrop : cropList) {
-            if(existingCrop.getName().equals(crop.getName())) {
-                return false;
-            }
-        }
-        cropList.add(crop);
-        return true;
-    }
-    
-    public ArrayList<Crop> getCropList() {
-        return this.cropList;   
-    }
-    
     public boolean plantCrop(Crop crop) {
-        if(this.crop != null) {
+        if(this.crop != null || !this.isPlowed) {
+            System.out.println("You may not plant on this tile!");
             return false;
         }
         this.crop = crop;
         this.daysToHarvest = crop.getHarvestTime();
         this.timesWatered = 0;
         this.timesFertilized = 0;
+
+        System.out.println("Plant success!");
         return true;
     }
     
@@ -80,6 +67,10 @@ public class Tile {
     public void setRock(boolean hasRock) {
         this.hasRock = hasRock;
     }
+
+    public void setPlowed() {
+        this.isPlowed = true;
+    }
     
     public void useShovel() {
         this.hasWitheredCrop = false;
@@ -92,7 +83,7 @@ public class Tile {
         this.hasRock = false;
     }
     
-    public boolean Water() {
+    public boolean water() {
         if(this.hasWitheredCrop) {
             System.out.println("You cannot water a withered crop!");
             return false;
@@ -105,7 +96,7 @@ public class Tile {
         return this.timesWatered;
     }
     
-    public boolean Fertilize() {
+    public boolean fertilize() {
         if(this.hasWitheredCrop) {
             System.out.println("You cannot fertilize a withered crop!");
             return false;
@@ -118,7 +109,7 @@ public class Tile {
         return this.timesFertilized;
     }
     
-    public int Harvest() {
+    public int harvest() {
         if(this.hasWitheredCrop) {
             System.out.println("You cannot harvest a withered crop!");
             return -1;

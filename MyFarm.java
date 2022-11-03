@@ -1,12 +1,10 @@
 public class MyFarm {
-  private Farmer farmer;
   private int landWidth;
   private int landLength;
   private Tile[][] land;
   private int day;
   
-  public MyFarm(Farmer farmer) {
-    this.farmer = farmer;
+  public MyFarm() {
     this.landWidth = 1;
     this.landLength = 1;
     this.land = new Tile[landLength][landWidth];
@@ -14,6 +12,7 @@ public class MyFarm {
   }
   
   public void displayOverview() {
+    System.out.println("");
     System.out.println("Overview of Your Farm");
     System.out.printf("Current Day: %d", this.day);
     System.out.printf("Land Size: %d x %d", landLength, landWidth);
@@ -21,6 +20,10 @@ public class MyFarm {
     System.out.printf("Planted Crops: %d", this.getCrops());
     System.out.printf("Harvestable Crops: %d", this.getHarvestable());
     System.out.printf("Withered Crops: %d", this.getWithered());
+  }
+
+  public Tile getTile(int xPos, int yPos) {
+    return land[xPos - 1][yPos - 1];
   }
 
   public int getLandWidth() {
