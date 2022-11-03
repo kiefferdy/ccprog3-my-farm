@@ -90,7 +90,7 @@ public class MyFarm {
   public boolean checkGameOver() {
     boolean result = false;
     
-    if(getWithered() + getRocks() == 50) {
+    if(getWithered() + getRocks() == (this.landLength * this.landWidth)) {
       result = true; 
     }
     
