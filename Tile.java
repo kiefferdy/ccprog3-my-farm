@@ -68,19 +68,34 @@ public class Tile {
         this.hasRock = hasRock;
     }
 
-    public void setPlowed() {
+    public boolean setPlowed() {
+        if(!this.isPlowed) {
+            System.out.println("You cannot plow a tile that is already plowed!");
+            return false;
+        }
         this.isPlowed = true;
+        return true;
     }
     
-    public void useShovel() {
+    public boolean useShovel() {
+        if(!this.hasWitheredCrop) {
+            System.out.println("You cannot use your shovel on a tile that does not contain a withered crop!");
+            return false;
+        }
         this.hasWitheredCrop = false;
         this.crop = null;
         this.timesWatered = 0;
         this.timesFertilized = 0;
+        return true;
     }
     
-    public void usePickaxe() {
+    public boolean usePickaxe() {
+        if(!this.hasRock) {
+            System.out.println("You cannot use your pickaxe on a tile that does not contain a rock!");
+            return false;
+        }
         this.hasRock = false;
+        return true;
     }
     
     public boolean water() {
@@ -109,7 +124,7 @@ public class Tile {
         return this.timesFertilized;
     }
     
-    public int harvest() {
+    public int harvestCrop() {
         if(this.hasWitheredCrop) {
             System.out.println("You cannot harvest a withered crop!");
             return -1;

@@ -67,58 +67,68 @@ public class Driver {
                 menuChoice = sc.nextInt();
             } while(menuChoice < 1 || menuChoice > 7);
 
-            if(menuChoice == 1) {
-                player.displayStats();
-            }
-            else if(menuChoice == 2) {
-                myFarm.displayOverview();
-            }
-            else if(menuChoice == 3) {
-                myFarm.getTile(1, 1).displayStatus();
-            }
-            else if(menuChoice == 4) {
-                int cropChoice = 0;
-                do {
-                    System.out.println("");
-                    System.out.println("Choose a crop to plant.");
-                    System.out.println("1 - Turnip");
-                    System.out.println("2 - Carrot");
-                    System.out.println("3 - Potato");
-                    System.out.println("4 - Rose");
-                    System.out.println("5 - Tulips");
-                    System.out.println("6 - Sunflower");
-                    System.out.println("7 - Mango");
-                    System.out.println("8 - Apple");
-                    System.out.print("Enter your choice: ");
-                    cropChoice = sc.nextInt();
-                } while(cropChoice < 1 || cropChoice > 8);
+            switch(menuChoice) {
+                case 1:
+                    player.displayStats();
+                    break;
+                case 2:
+                    myFarm.displayOverview();
+                    break;
+                case 3:
+                    myFarm.getTile(1, 1).displayStatus();
+                    break;
+                case 4:
+                    int i = 0, cropChoice = 0;
+                    do {
+                        System.out.println("");
+                        System.out.println("Choose a crop to plant.");
 
-                switch(cropChoice) {
-                    case 1:
-                        myFarm.getTile(1, 1).plantCrop(turnip);
-                        break;
-                    case 2:
-                        myFarm.getTile(1, 1).plantCrop(carrot);
-                        break;
-                    case 3:
-                        myFarm.getTile(1, 1).plantCrop(potato);
-                        break;
-                    case 4:
-                        myFarm.getTile(1, 1).plantCrop(rose);
-                        break;
-                    case 5:
-                        myFarm.getTile(1, 1).plantCrop(tulips);
-                        break;
-                    case 6:
-                        myFarm.getTile(1, 1).plantCrop(sunflower);
-                        break;
-                    case 7:
-                        myFarm.getTile(1, 1).plantCrop(mango);
-                        break;
-                    case 8:
-                        myFarm.getTile(1, 1).plantCrop(apple);
-                        break;
-                }
+                        for (Crop crop : cropList) {
+                            System.out.printf("%d - %s (Cost: %d Objectcoins)\n", i, crop.getName(), crop.getSeedCost());
+                            i++;
+                        }
+
+                        System.out.print("Enter your choice: ");
+                        cropChoice = sc.nextInt();
+                    } while(cropChoice < 1 || cropChoice > 8);
+
+                    myFarm.getTile(1, 1).plantCrop(cropList.get(cropChoice - 1));
+                    break;
+                case 5:
+                    player.harvest(1, 1);
+                    break;
+                case 6:
+                    int toolChoice = 0;
+                    do {
+                        System.out.println("Choose a tool to use.");
+                        System.out.println("1 - Plow (Cost: FREE)");
+                        System.out.println("2 - Watering Can (Cost: FREE)");
+                        System.out.println("3 - Fertilizer (Cost: 10 Objectcoins)");
+                        System.out.println("4 - Pickaxe (Cost: 50 Objectcoins)");
+                        System.out.println("5 - Shovel (Cost: 7 Objectcoins)");
+
+                        System.out.print("Enter your choice: ");
+                        toolChoice = sc.nextInt();
+                    } while(toolChoice < 1 || toolChoice > 5);
+
+                    switch(toolChoice) {
+                        case 1:
+                            player.usePlow(1, 1);
+                            break;
+                        case 2:
+                            player.useWateringCan(1, 1);
+                            break;
+                        case 3:
+                            player.useFertilizer(1, 1);
+                            break;
+                        case 4:
+                            player.usePickaxe(1, 1);
+                            break;
+                        case 5:
+                            player.useShovel(1, 1);
+                            break;
+                    }
+                    break;
             }
         } while(!myFarm.checkGameOver());
 

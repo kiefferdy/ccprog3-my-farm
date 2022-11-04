@@ -40,15 +40,47 @@ public class Farmer {
         }
     }
 
+    public void usePlow(int xPos, int yPos) {
+        boolean result = myFarm.getTile(xPos, yPos).setPlowed();
+        if(result) {
+            this.xp += 0.5;
+            System.out.printf("Tile (%d, %d) has been plowed! You gained 0.5 experience.\n", xPos, yPos);
+        }
+    }
+
+    public void useWateringCan(int xPos, int yPos) {
+        boolean result = myFarm.getTile(xPos, yPos).water();
+        if(result) {
+            this.xp += 0.5;
+            System.out.printf("You have watered Tile (%d, %d)! You gained 0.5 experience.\n", xPos, yPos);
+        }
+    }
+
+    public void useFertilizer(int xPos, int yPos) {
+        if(this.objectcoins < 10) {
+            System.out.printf("Insufficient funds! You need %d more Objectcoins to fertilize your crop.\n", 10 - this.objectcoins);
+        }
+        else {
+            boolean result = myFarm.getTile(xPos, yPos).fertilize();
+            if(result) {
+                this.objectcoins -= 10;
+                this.xp += 4;
+                System.out.printf("You have fertilized Tile (%d, %d)! You gained 4 experience.\n", xPos, yPos);
+            }
+        }
+    }
+
     public void usePickaxe(int xPos, int yPos) {
         if(this.objectcoins < 50) {
             System.out.printf("Insufficient funds! You need %d more Objectcoins to use the pickaxe.\n", 50 - this.objectcoins);
         }
         else {
-            this.objectcoins -= 50;
-            this.xp += 15;
-            myFarm.getTile(xPos, yPos).usePickaxe();
-            System.out.println("Success! You spent 50 Objectcoins and gained 15 experience.");
+            boolean result = myFarm.getTile(xPos, yPos).usePickaxe();
+            if(result) {
+                this.objectcoins -= 50;
+                this.xp += 15;
+                System.out.println("Success! You spent 50 Objectcoins and gained 15 experience.");
+            }
         }
     }
 
@@ -57,10 +89,12 @@ public class Farmer {
             System.out.printf("Insufficient funds! You need %d more Objectcoins to use the shovel.\n", 7 - this.objectcoins);
         }
         else {
-            this.objectcoins -= 7;
-            this.xp += 2;
-            myFarm.getTile(xPos, yPos).useShovel();
-            System.out.println("Success! You spent 7 Objectcoins and gained 2 experience.");
+            boolean result = myFarm.getTile(xPos, yPos).useShovel();
+            if(result) {
+                this.objectcoins -= 7;
+                this.xp += 2;
+                System.out.println("Success! You spent 7 Objectcoins and gained 2 experience.");
+            }
         }
     }
 
@@ -69,7 +103,8 @@ public class Farmer {
             System.out.printf("Insufficient funds! You need %d more Objectcoins to plant this crop.\n", crop.getSeedCost() - this.objectcoins);
         }
         else {
-            if(myFarm.getTile(xPos, yPos).plantCrop(crop)) {
+            boolean result = myFarm.getTile(xPos, yPos).plantCrop(crop);
+            if(result) {
                 this.objectcoins -= crop.getSeedCost();
                 System.out.printf("You have successfully planted %s on Tile (%d, %d)!\n", crop.getName(), xPos, yPos);
             }
@@ -77,7 +112,7 @@ public class Farmer {
     }
 
     public void harvest(int xPos, int yPos) {
-        int produce = myFarm.getTile(xPos, yPos).harvest();
+        int produce = myFarm.getTile(xPos, yPos).harvestCrop();
         if(produce != -1) {
             int harvestTotal = produce * (myFarm.getTile(xPos, yPos).getCrop().getBaseHarvestPrice() + this.rank.getBonusEarnings());
             double waterBonus = harvestTotal * 0.2 * (myFarm.getTile(xPos, yPos).getTimesWatered() - 1);
@@ -110,19 +145,7 @@ public class Farmer {
         return this.rank;
     }
 
-    public void addXP(int amount) {
-        this.xp += amount;
-    }
-
     public double getObjectcoins() {
         return this.objectcoins;
-    }
-
-    public void addObjectCoins(int amount) {
-        this.objectcoins += amount;
-    }
-
-    public void deductObjectCoins(int amount) {
-        this.objectcoins -= amount;
     }
 }
