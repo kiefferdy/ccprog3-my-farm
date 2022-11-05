@@ -5,6 +5,7 @@ public class Farmer {
     private int level;
     private Rank rank;
     private MyFarm myFarm;
+    private boolean isGameOver;
 
     public Farmer(String username, Rank rank, MyFarm myFarm) {
         this.username = username;
@@ -13,6 +14,7 @@ public class Farmer {
         this.level = 0;
         this.rank = rank;
         this.myFarm = myFarm;
+        isGameOver = false;
     }
 
     public void displayStats() {
@@ -147,5 +149,9 @@ public class Farmer {
 
     public double getObjectcoins() {
         return this.objectcoins;
+    }
+    
+    public void setGameOver() {
+        
     }
 }
