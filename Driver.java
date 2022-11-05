@@ -129,6 +129,11 @@ public class Driver {
                             break;
                     }
                     break;
+                    
+                case 7:
+                    System.out.println("Sleeping...");
+                    MyFarm.day++;
+                    break;
             }
         } while(!myFarm.checkGameOver());
 
