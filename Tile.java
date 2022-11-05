@@ -24,7 +24,7 @@ public class Tile {
         System.out.printf("\n\tContains Rock: %s", this.hasRock ? "Yes" : "No");
         System.out.printf("\n\tContains Withered Crop: %s", this.hasWitheredCrop ? "Yes" : "No");
         System.out.printf("\n\tCrop Planted: %s", this.crop != null ? this.crop.getName() : "N/A");
-        System.out.printf("\n\tTime Until Harvest: %s", this.crop != null ? Integer.toString(this.daysToHarvest) : "N/A");
+        System.out.printf("\n\tTime Until Harvest: %s", this.crop != null ? Integer.toString(this.daysToHarvest) + " day(s)" : "N/A");
         System.out.printf("\n\tRemaining Water Needs: %s", this.crop != null ? Integer.toString(this.crop.getWaterNeeds() - this.timesWatered) : "N/A");
         System.out.printf("\n\tRemaining Fertilizer Needs: %s\n", this.crop != null ? Integer.toString(this.crop.getFertilizerNeeds() - this.timesFertilized) : "N/A");
     }
@@ -45,9 +45,11 @@ public class Tile {
     public void ageCrop() {
         if(daysToHarvest <= 0) {
             this.hasWitheredCrop = true;
+            System.out.printf("\nALERT: Your %s crop on Tile (%d, %d) has withered because you failed to harvest it in time!\n", this.crop.getName(), this.xPos, this.yPos);
         }
         else if(daysToHarvest == 1) {
             if(timesWatered < crop.getWaterNeeds() || timesFertilized < crop.getFertilizerNeeds()) {
+                System.out.printf("\nALERT: Your %s crop on Tile (%d, %d) has withered because you failed to meet its needs in time!\n", this.crop.getName(), this.xPos, this.yPos);
                 this.hasWitheredCrop = true;
             }
         }
@@ -88,6 +90,7 @@ public class Tile {
         this.crop = null;
         this.timesWatered = 0;
         this.timesFertilized = 0;
+        this.daysToHarvest = -1;
         return true;
     }
     
@@ -148,6 +151,13 @@ public class Tile {
         int produce = rand.nextInt(crop.getMaxProduce() - crop.getMinProduce() + 1);
         produce += crop.getMinProduce();
         return produce;
+    }
+
+    public void clearCrop() {
+        this.crop = null;
+        this.timesWatered = 0;
+        this.timesFertilized = 0;
+        this.daysToHarvest = -1;
     }
 
     public int getDaysToHarvest() {

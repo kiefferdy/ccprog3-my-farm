@@ -34,7 +34,7 @@ public class Farmer {
                 System.out.printf("Registration success! You are now a %s.\n", rank.getRank());
             }
             else {
-                System.out.printf("You have met the level requirement but you need %d more Objectcoins to cover the registration fee!\n", rank.getRegistrationFee() - this.objectcoins);
+                System.out.printf("You have met the level requirement but you need %f more Objectcoins to cover the registration fee!\n", rank.getRegistrationFee() - this.objectcoins);
             }
         }
         else {
@@ -60,7 +60,7 @@ public class Farmer {
 
     public void useFertilizer(int xPos, int yPos) {
         if(this.objectcoins < 10) {
-            System.out.printf("Insufficient funds! You need %d more Objectcoins to fertilize your crop.\n", 10 - this.objectcoins);
+            System.out.printf("Insufficient funds! You need %f more Objectcoins to fertilize your crop.\n", 10 - this.objectcoins);
         }
         else {
             boolean result = myFarm.getTile(xPos, yPos).fertilize();
@@ -74,7 +74,7 @@ public class Farmer {
 
     public void usePickaxe(int xPos, int yPos) {
         if(this.objectcoins < 50) {
-            System.out.printf("Insufficient funds! You need %d more Objectcoins to use the pickaxe.\n", 50 - this.objectcoins);
+            System.out.printf("Insufficient funds! You need %f more Objectcoins to use the pickaxe.\n", 50 - this.objectcoins);
         }
         else {
             boolean result = myFarm.getTile(xPos, yPos).usePickaxe();
@@ -88,7 +88,7 @@ public class Farmer {
 
     public void useShovel(int xPos, int yPos) {
         if(this.objectcoins < 7) {
-            System.out.printf("Insufficient funds! You need %d more Objectcoins to use the shovel.\n", 7 - this.objectcoins);
+            System.out.printf("Insufficient funds! You need %f more Objectcoins to use the shovel.\n", 7 - this.objectcoins);
         }
         else {
             boolean result = myFarm.getTile(xPos, yPos).useShovel();
@@ -102,7 +102,7 @@ public class Farmer {
 
     public void plant(Crop crop, int xPos, int yPos) {
         if(this.objectcoins < crop.getSeedCost()) {
-            System.out.printf("Insufficient funds! You need %d more Objectcoins to plant this crop.\n", crop.getSeedCost() - this.objectcoins);
+            System.out.printf("Insufficient funds! You need %f more Objectcoins to plant this crop.\n", crop.getSeedCost() - this.objectcoins);
         }
         else {
             boolean result = myFarm.getTile(xPos, yPos).plantCrop(crop);
@@ -127,6 +127,7 @@ public class Farmer {
 
             this.objectcoins += finalHarvestPrice;
             this.xp += myFarm.getTile(xPos, yPos).getCrop().getExpYield();
+            myFarm.getTile(xPos, yPos).clearCrop();
             System.out.printf("Success! Your crop produced %d products. You earned %f Objectcoins and gained %f experience.\n", produce, finalHarvestPrice, myFarm.getTile(xPos, yPos).getCrop().getExpYield());
         }
     }
