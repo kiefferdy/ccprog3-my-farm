@@ -89,14 +89,4 @@ public class MyFarm {
   public void nextDay() {
     this.day++; 
   }
-  
-  public boolean checkGameOver() {
-    boolean result = false;
-    
-    if(getWithered() + getRocks() == (this.landLength * this.landWidth)) {
-      result = true; 
-    }
-    
-    return result;
-  }
 }
