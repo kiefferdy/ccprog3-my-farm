@@ -39,7 +39,6 @@ public class Tile {
         this.timesWatered = 0;
         this.timesFertilized = 0;
 
-        System.out.println("Plant success!");
         return true;
     }
     
@@ -106,6 +105,10 @@ public class Tile {
             System.out.println("You cannot water a withered crop!");
             return false;
         }
+        if(this.crop == null) {
+            System.out.println("You cannot water an empty tile!");
+            return false;
+        }
         this.timesWatered++;
         return true;
     }
@@ -117,6 +120,10 @@ public class Tile {
     public boolean fertilize() {
         if(this.hasWitheredCrop) {
             System.out.println("You cannot fertilize a withered crop!");
+            return false;
+        }
+        if(this.crop == null) {
+            System.out.println("You cannot fertilize an empty tile!");
             return false;
         }
         this.timesFertilized++;

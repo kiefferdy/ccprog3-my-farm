@@ -96,7 +96,7 @@ public class Driver {
                         cropChoice = sc.nextInt();
                     } while(cropChoice < 1 || cropChoice > 8);
 
-                    myFarm.getTile(1, 1).plantCrop(cropList.get(cropChoice - 1));
+                    player.plant(cropList.get(cropChoice - 1), 1, 1);
                     break;
                 case 5:
                     player.harvest(1, 1);
@@ -140,6 +140,7 @@ public class Driver {
                     break;
                 case 8:
                     player.setGameOver();
+                    break;
             }
         } while(!player.checkGameOver());
 

@@ -127,7 +127,7 @@ public class Farmer {
 
             this.objectcoins += finalHarvestPrice;
             this.xp += myFarm.getTile(xPos, yPos).getCrop().getExpYield();
-            System.out.printf("Success! Your crop produced %d products. You earned %lf Objectcoins and gained %lf experience.\n", produce, finalHarvestPrice, myFarm.getTile(xPos, yPos).getCrop().getExpYield());
+            System.out.printf("Success! Your crop produced %d products. You earned %f Objectcoins and gained %f experience.\n", produce, finalHarvestPrice, myFarm.getTile(xPos, yPos).getCrop().getExpYield());
         }
     }
 
