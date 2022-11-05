@@ -151,6 +151,10 @@ public class Farmer {
         return this.objectcoins;
     }
     
+    public boolean checkGameOver() {
+        
+    }
+    
     public void setGameOver() {
         
     }
