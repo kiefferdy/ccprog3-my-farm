@@ -14,12 +14,21 @@ public class MyFarm {
   public void displayOverview() {
     System.out.println("");
     System.out.println("Overview of Your Farm");
-    System.out.printf("Current Day: %d", this.day);
-    System.out.printf("Land Size: %d x %d", landLength, landWidth);
-    System.out.printf("Uncleared Rocks: %d", this.getRocks());
-    System.out.printf("Planted Crops: %d", this.getCrops());
-    System.out.printf("Harvestable Crops: %d", this.getHarvestable());
-    System.out.printf("Withered Crops: %d", this.getWithered());
+    System.out.printf("Current Day: %d\n", this.day);
+    System.out.printf("Land Size: %d x %d\n", landLength, landWidth);
+    System.out.printf("Uncleared Rocks: %d\n", this.getRocks());
+    System.out.printf("Planted Crops: %d\n", this.getCrops());
+    System.out.printf("Harvestable Crops: %d\n", this.getHarvestable());
+    System.out.printf("Withered Crops: %d\n", this.getWithered());
+  }
+
+  public void createTiles() {
+    int i, j;
+    for(i = 0; i < this.landLength; i++) {
+      for(j = 0; j < this.landWidth; j++) {
+        land[i][j] = new Tile(i + 1, j + 1);
+      }
+    }
   }
 
   public Tile getTile(int xPos, int yPos) {
@@ -37,7 +46,7 @@ public class MyFarm {
   public int getRocks() {
     int i, j, count = 0;
     for(i = 0; i < this.landLength; i++) {
-      for(j = 0; j < this.landWidth; i++) {
+      for(j = 0; j < this.landWidth; j++) {
         if(land[i][j].hasRock()) {
           count++;
         }
@@ -49,8 +58,8 @@ public class MyFarm {
   public int getCrops() {
     int i, j, count = 0;
     for(i = 0; i < this.landLength; i++) {
-      for(j = 0; j < this.landWidth; i++) {
-        if(land[i][j].getCrop() != null) {
+      for(j = 0; j < this.landWidth; j++) {
+        if(land[i][j].getCrop() != null && !land[i][j].getHasWitheredCrop()) {
           count++;
         }
       }
@@ -61,7 +70,7 @@ public class MyFarm {
   public int getHarvestable() {
     int i, j, count = 0;
     for(i = 0; i < this.landLength; i++) {
-      for(j = 0; j < this.landWidth; i++) {
+      for(j = 0; j < this.landWidth; j++) {
         if(land[i][j].getDaysToHarvest() == 0 && !land[i][j].getHasWitheredCrop()) {
           count++;
         }
@@ -73,7 +82,7 @@ public class MyFarm {
   public int getWithered() {
     int i, j, count = 0;
     for(i = 0; i < this.landLength; i++) {
-      for(j = 0; j < this.landWidth; i++) {
+      for(j = 0; j < this.landWidth; j++) {
         if(land[i][j].getHasWitheredCrop()) {
           count++;
         }
@@ -87,6 +96,14 @@ public class MyFarm {
   }
   
   public void nextDay() {
-    this.day++; 
+    int i, j;
+    for(i = 0; i < this.landLength; i++) {
+      for(j = 0; j < this.landWidth; j++) {
+        if(land[i][j].getCrop() != null) {
+          land[i][j].ageCrop();
+        }
+      }
+    }
+    this.day++;
   }
 }

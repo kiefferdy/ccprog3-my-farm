@@ -14,6 +14,8 @@ public class Tile {
         this.xPos = xPos;
         this.yPos = yPos;
         this.isPlowed = false;
+        this.hasRock = false;
+        this.daysToHarvest = -1;
     }
     
     public void displayStatus() {
@@ -22,8 +24,9 @@ public class Tile {
         System.out.printf("\n\tContains Rock: %s", this.hasRock ? "Yes" : "No");
         System.out.printf("\n\tContains Withered Crop: %s", this.hasWitheredCrop ? "Yes" : "No");
         System.out.printf("\n\tCrop Planted: %s", this.crop != null ? this.crop.getName() : "N/A");
-        System.out.printf("\n\tTime Until Harvest: %d", this.crop != null ? this.daysToHarvest : "N/A");
-        System.out.printf("\n\tRemaining Water Needs: %d", this.crop != null ? this.crop.getWaterNeeds() - this.timesWatered : "N/A");
+        System.out.printf("\n\tTime Until Harvest: %s", this.crop != null ? Integer.toString(this.daysToHarvest) : "N/A");
+        System.out.printf("\n\tRemaining Water Needs: %s", this.crop != null ? Integer.toString(this.crop.getWaterNeeds() - this.timesWatered) : "N/A");
+        System.out.printf("\n\tRemaining Fertilizer Needs: %s\n", this.crop != null ? Integer.toString(this.crop.getFertilizerNeeds() - this.timesFertilized) : "N/A");
     }
     
     public boolean plantCrop(Crop crop) {
@@ -69,7 +72,7 @@ public class Tile {
     }
 
     public boolean setPlowed() {
-        if(!this.isPlowed) {
+        if(this.isPlowed) {
             System.out.println("You cannot plow a tile that is already plowed!");
             return false;
         }

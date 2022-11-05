@@ -41,6 +41,7 @@ public class Driver {
         System.out.printf("Please enter your character name: ");
         String username = sc.next();
         MyFarm myFarm = new MyFarm();
+        myFarm.createTiles();
         Farmer player = new Farmer(username, farmer, myFarm);
 
         // Welcome message
@@ -48,13 +49,14 @@ public class Driver {
         System.out.println("Your goal is to get rich by planting all sorts of crops.");
         System.out.println("Don't forget to water and harvest your crops to prevent them from withering!");
 
+        player.displayStats();
+        myFarm.displayOverview();
+
         // Game run
         do {
-            player.displayStats();
-            myFarm.displayOverview();
-            
             int menuChoice = 0;
             do {
+                System.out.println("");
                 System.out.println("What would you like to do?");
                 System.out.println("1 - Display my character's statistics");
                 System.out.println("2 - Display an overview of my whole farm");
@@ -63,9 +65,10 @@ public class Driver {
                 System.out.println("5 - Harvest a crop");
                 System.out.println("6 - Use a tool");
                 System.out.println("7 - Sleep and advance to the next day");
+                System.out.println("8 - End the game");
                 System.out.print("Enter your choice: ");
                 menuChoice = sc.nextInt();
-            } while(menuChoice < 1 || menuChoice > 7);
+            } while(menuChoice < 1 || menuChoice > 8);
 
             switch(menuChoice) {
                 case 1:
@@ -78,13 +81,14 @@ public class Driver {
                     myFarm.getTile(1, 1).displayStatus();
                     break;
                 case 4:
-                    int i = 0, cropChoice = 0;
+                    int i, cropChoice = 0;
                     do {
                         System.out.println("");
                         System.out.println("Choose a crop to plant.");
 
+                        i = 0;
                         for (Crop crop : cropList) {
-                            System.out.printf("%d - %s (Cost: %d Objectcoins)\n", i, crop.getName(), crop.getSeedCost());
+                            System.out.printf("%d - %s (Cost: %d Objectcoins)\n", i + 1, crop.getName(), crop.getSeedCost());
                             i++;
                         }
 
@@ -100,6 +104,7 @@ public class Driver {
                 case 6:
                     int toolChoice = 0;
                     do {
+                        System.out.println("");
                         System.out.println("Choose a tool to use.");
                         System.out.println("1 - Plow (Cost: FREE)");
                         System.out.println("2 - Watering Can (Cost: FREE)");
@@ -129,13 +134,19 @@ public class Driver {
                             break;
                     }
                     break;
-                    
                 case 7:
                     System.out.println("Sleeping...");
-                    MyFarm.day++;
+                    myFarm.nextDay();
                     break;
+                case 8:
+                    player.setGameOver();
             }
-        } while(!myFarm.checkGameOver());
+        } while(!player.checkGameOver());
+
+        System.out.println("GAME OVER! Here are some of your game statistics...");
+        player.displayStats();
+        myFarm.displayOverview();
+        System.out.printf("\nThanks for playing, %s!", player.getUsername());
 
         sc.close();
     }

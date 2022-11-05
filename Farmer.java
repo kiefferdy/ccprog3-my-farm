@@ -14,14 +14,14 @@ public class Farmer {
         this.level = 0;
         this.rank = rank;
         this.myFarm = myFarm;
-        isGameOver = false;
+        this.isGameOver = false;
     }
 
     public void displayStats() {
         System.out.println("");
         System.out.println("Character Statistics");
         System.out.println("Name: " + this.username);
-        System.out.println("Rank: " + this.rank);
+        System.out.println("Rank: " + this.rank.getRank());
         System.out.println("Level: " + this.level);
         System.out.println("Total XP: " + this.xp);
         System.out.println("Objectcoins : " + this.objectcoins);
@@ -150,12 +150,17 @@ public class Farmer {
     public double getObjectcoins() {
         return this.objectcoins;
     }
-    
+
     public boolean checkGameOver() {
-        
+        if((myFarm.getWithered() + myFarm.getRocks() == (myFarm.getLandLength() * myFarm.getLandWidth())) &&
+           (myFarm.getCrops() == 0) &&
+           (this.objectcoins < 5)) {
+            this.isGameOver = true; 
+        }
+        return this.isGameOver;
     }
     
     public void setGameOver() {
-        
+        this.isGameOver = true;
     }
 }
