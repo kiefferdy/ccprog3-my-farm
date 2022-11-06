@@ -162,6 +162,7 @@ public class Tile {
         this.timesWatered = 0;
         this.timesFertilized = 0;
         this.daysToHarvest = -1;
+        this.isPlowed = false;
     }
 
     public int getDaysToHarvest() {
