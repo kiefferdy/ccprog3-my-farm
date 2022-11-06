@@ -87,10 +87,7 @@ public class Tile {
             return false;
         }
         this.hasWitheredCrop = false;
-        this.crop = null;
-        this.timesWatered = 0;
-        this.timesFertilized = 0;
-        this.daysToHarvest = -1;
+        this.clearCrop();
         return true;
     }
     
