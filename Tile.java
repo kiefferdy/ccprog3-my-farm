@@ -138,6 +138,10 @@ public class Tile {
     }
     
     public int harvestCrop() {
+        if(this.crop == null) {
+            System.out.println("You cannot harvest a non-existent crop!");
+            return -1;
+        }
         if(this.hasWitheredCrop) {
             System.out.println("You cannot harvest a withered crop!");
             return -1;

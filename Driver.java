@@ -61,14 +61,15 @@ public class Driver {
                 System.out.println("1 - Display my character's statistics");
                 System.out.println("2 - Display an overview of my whole farm");
                 System.out.println("3 - Display the status of my tile");
-                System.out.println("4 - Plant a crop");
-                System.out.println("5 - Harvest a crop");
-                System.out.println("6 - Use a tool");
+                System.out.println("4 - Use a tool");
+                System.out.println("5 - Plant a crop");
+                System.out.println("6 - Harvest a crop");
                 System.out.println("7 - Sleep and advance to the next day");
-                System.out.println("8 - End the game");
+                System.out.println("8 - Register for a rank");
+                System.out.println("9 - End the game");
                 System.out.print("Enter your choice: ");
                 menuChoice = sc.nextInt();
-            } while(menuChoice < 1 || menuChoice > 8);
+            } while(menuChoice < 1 || menuChoice > 9);
 
             switch(menuChoice) {
                 case 1:
@@ -81,27 +82,6 @@ public class Driver {
                     myFarm.getTile(1, 1).displayStatus();
                     break;
                 case 4:
-                    int i, cropChoice = 0;
-                    do {
-                        System.out.println("");
-                        System.out.println("Choose a crop to plant.");
-
-                        i = 0;
-                        for (Crop crop : cropList) {
-                            System.out.printf("%d - %s (Cost: %d Objectcoins)\n", i + 1, crop.getName(), crop.getSeedCost());
-                            i++;
-                        }
-
-                        System.out.print("Enter your choice: ");
-                        cropChoice = sc.nextInt();
-                    } while(cropChoice < 1 || cropChoice > 8);
-
-                    player.plant(cropList.get(cropChoice - 1), 1, 1);
-                    break;
-                case 5:
-                    player.harvest(1, 1);
-                    break;
-                case 6:
                     int toolChoice = 0;
                     do {
                         System.out.println("");
@@ -134,16 +114,56 @@ public class Driver {
                             break;
                     }
                     break;
+                case 5:
+                    int i, cropChoice = 0;
+                    do {
+                        System.out.printf("\nChoose a crop to plant.\n");
+
+                        i = 0;
+                        for (Crop crop : cropList) {
+                            System.out.printf("%d - %s (Cost: %d Objectcoins)\n", i + 1, crop.getName(), crop.getSeedCost());
+                            i++;
+                        }
+
+                        System.out.print("Enter your choice: ");
+                        cropChoice = sc.nextInt();
+                    } while(cropChoice < 1 || cropChoice > 8);
+
+                    player.plant(cropList.get(cropChoice - 1), 1, 1);
+                    break;
+                case 6:
+                    player.harvest(1, 1);
+                    break;
                 case 7:
                     System.out.println("Sleeping...");
                     myFarm.nextDay();
                     break;
                 case 8:
+                    int rankChoice = 0;
+                    do {
+                        System.out.printf("\nChoose the rank you would like to register for.\n\n");
+
+                        i = 0;
+                        for(Rank rank : rankList) {
+                            System.out.printf("%d - %s\n", i + 1, rank.getRank());
+                            System.out.printf("\tLevel Required: %d\n", rank.getLevelRequirements());
+                            System.out.printf("\tRegistration Fee: %d Objectcoins\n\n", rank.getRegistrationFee());
+                            i++;
+                        }
+
+                        System.out.print("Enter your choice: ");
+                        rankChoice = sc.nextInt();
+                    } while(rankChoice < 1 || rankChoice > 4);
+
+                    player.register(rankList.get(rankChoice - 1));
+                    break;
+                case 9:
                     player.setGameOver();
                     break;
             }
         } while(!player.checkGameOver());
 
+        System.out.println("");
         System.out.println("GAME OVER! Here are some of your game statistics...");
         player.displayStats();
         myFarm.displayOverview();

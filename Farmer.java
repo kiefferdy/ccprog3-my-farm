@@ -22,23 +22,28 @@ public class Farmer {
         System.out.println("Character Statistics");
         System.out.println("Name: " + this.username);
         System.out.println("Rank: " + this.rank.getRank());
-        System.out.println("Level: " + this.level);
+        System.out.println("Level: " + this.getLevel());
         System.out.println("Total XP: " + this.xp);
         System.out.println("Objectcoins : " + this.objectcoins);
     }
 
     public void register(Rank rank) {
-        if(this.level >= rank.getLevelRequirements()) {
-            if(this.objectcoins >= rank.getRegistrationFee()) {
-                this.rank = rank;
-                System.out.printf("Registration success! You are now a %s.\n", rank.getRank());
-            }
-            else {
-                System.out.printf("You have met the level requirement but you need %f more Objectcoins to cover the registration fee!\n", rank.getRegistrationFee() - this.objectcoins);
-            }
+        if(this.rank == rank) {
+            System.out.println("The rank you are attempting to register for is already your rank!");
         }
         else {
-            System.out.printf("You need to level up %d more times to be eligible for this rank!\n", rank.getLevelRequirements() - this.level);
+            if(this.getLevel() >= rank.getLevelRequirements()) {
+                if(this.objectcoins >= rank.getRegistrationFee()) {
+                    this.rank = rank;
+                    System.out.printf("Registration success! You are now a %s.\n", rank.getRank());
+                }
+                else {
+                    System.out.printf("You have met the level requirement but you need %f more Objectcoins to cover the registration fee!\n", rank.getRegistrationFee() - this.objectcoins);
+                }
+            }
+            else {
+                System.out.printf("You need to level up %d more times to be eligible for this rank!\n", rank.getLevelRequirements() - this.level);
+            }
         }
     }
 
@@ -127,8 +132,8 @@ public class Farmer {
 
             this.objectcoins += finalHarvestPrice;
             this.xp += myFarm.getTile(xPos, yPos).getCrop().getExpYield();
-            myFarm.getTile(xPos, yPos).clearCrop();
             System.out.printf("Success! Your crop produced %d products. You earned %f Objectcoins and gained %f experience.\n", produce, finalHarvestPrice, myFarm.getTile(xPos, yPos).getCrop().getExpYield());
+            myFarm.getTile(xPos, yPos).clearCrop();
         }
     }
 
@@ -141,6 +146,7 @@ public class Farmer {
     }
 
     public int getLevel() {
+        this.level = (int) this.xp / 100;
         return this.level;
     }
 
@@ -153,7 +159,7 @@ public class Farmer {
     }
 
     public boolean checkGameOver() {
-        if((myFarm.getWithered() + myFarm.getRocks() == (myFarm.getLandLength() * myFarm.getLandWidth())) &&
+        if((myFarm.getWithered() + myFarm.getRocks() == (myFarm.getLandLength() * myFarm.getLandWidth())) ||
            (myFarm.getCrops() == 0) &&
            (this.objectcoins < 5)) {
             this.isGameOver = true; 
