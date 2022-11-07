@@ -1,3 +1,6 @@
+/**
+ * This class represents the farmer (player)
+ */
 public class Farmer {
     private String username;
     private double objectcoins;
@@ -7,6 +10,12 @@ public class Farmer {
     private MyFarm myFarm;
     private boolean isGameOver;
 
+    /**
+     * This constructor sets the initial details of the player
+     * @param username is the username of the player
+     * @param rank is the rank of the player
+     * @param myFarm is the farm of the player
+     */
     public Farmer(String username, Rank rank, MyFarm myFarm) {
         this.username = username;
         this.objectcoins = 100;
@@ -17,6 +26,9 @@ public class Farmer {
         this.isGameOver = false;
     }
 
+    /**
+     * This method displays the current stats of the player
+     */
     public void displayStats() {
         System.out.println("");
         System.out.println("Character Statistics");
@@ -27,6 +39,10 @@ public class Farmer {
         System.out.println("Objectcoins : " + this.objectcoins);
     }
 
+    /**
+     * This method attempts to register the player to a certain rank
+     * @param rank is the rank the player wants to register for
+     */
     public void register(Rank rank) {
         if(this.rank == rank) {
             System.out.println("The rank you are attempting to register for is already your rank!");
@@ -47,6 +63,11 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method lets the player use the plow tool on a tile
+     * @param xPos is the row position of the tile to be plowed
+     * @param yPos is the column position of the tile to be plowed
+     */
     public void usePlow(int xPos, int yPos) {
         boolean result = myFarm.getTile(xPos, yPos).setPlowed();
         if(result) {
@@ -55,6 +76,11 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method lets the player use the watering can tool on a crop
+     * @param xPos is the row position of the tile to be watered
+     * @param yPos is the column position of the tile to be watered
+     */
     public void useWateringCan(int xPos, int yPos) {
         boolean result = myFarm.getTile(xPos, yPos).water();
         if(result) {
@@ -63,6 +89,11 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method attempts to let the player fertilize a crop
+     * @param xPos is the row position of the tile to be fertilized
+     * @param yPos is the column position of the tile to be fertilized
+     */
     public void useFertilizer(int xPos, int yPos) {
         if(this.objectcoins < 10) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to fertilize your crop.\n", 10 - this.objectcoins);
@@ -77,6 +108,11 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method attempts to let the player use the pickaxe tool on a tile
+     * @param xPos is the row position of the tile where the pickaxe will be used
+     * @param yPos is the column position of the tile where the pickaxe will be used
+     */
     public void usePickaxe(int xPos, int yPos) {
         if(this.objectcoins < 50) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to use the pickaxe.\n", 50 - this.objectcoins);
@@ -91,6 +127,11 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method attempts to let the player use the shovel tool on a tile
+     * @param xPos is the row position of the tile where the shovel will be used
+     * @param yPos is the column position of the tile where the shovel will be used
+     */
     public void useShovel(int xPos, int yPos) {
         if(this.objectcoins < 7) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to use the shovel.\n", 7 - this.objectcoins);
@@ -105,6 +146,12 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method attempts to let the player plant a crop on a tile
+     * @param crop is the crop to be planted
+     * @param xPos is the row position of the tile where planting will occur
+     * @param yPos is the column position of the tile where planting will occur
+     */
     public void plant(Crop crop, int xPos, int yPos) {
         if(this.objectcoins < crop.getSeedCost()) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to plant this crop.\n", crop.getSeedCost() - this.objectcoins);
@@ -118,6 +165,11 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method harvests the crop from a tile
+     * @param xPos is the row position of the tile where harvesting will occur
+     * @param yPos is the column position of the tile where harvesting will occur
+     */
     public void harvest(int xPos, int yPos) {
         int produce = myFarm.getTile(xPos, yPos).harvestCrop();
         if(produce != -1) {
@@ -137,27 +189,51 @@ public class Farmer {
         }
     }
 
+    /**
+     * This method gets the username of the player
+     * @return the username of the player
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * This method gets the current exp count of the player
+     * @return the current exp count of the player
+     */
     public double getXP() {
         return this.xp;
     }
 
+    /**
+     * This method gets the current level of the player
+     * @return the current level of the player
+     */
     public int getLevel() {
         this.level = (int) this.xp / 100;
         return this.level;
     }
 
+    /**
+     * This method gets the current rank of the player
+     * @return the current rank of the player
+     */
     public Rank getRank() {
         return this.rank;
     }
 
+    /**
+     * This method gets the current number of Objectcoins the player has
+     * @return the number of Objectcoins the player has
+     */
     public double getObjectcoins() {
         return this.objectcoins;
     }
 
+    /**
+     * This method checks for game over conditions
+     * @return true if it is game over, false if not
+     */
     public boolean checkGameOver() {
         if((myFarm.getWithered() + myFarm.getRocks() == (myFarm.getLandLength() * myFarm.getLandWidth())) ||
            (myFarm.getCrops() == 0) &&
@@ -167,6 +243,9 @@ public class Farmer {
         return this.isGameOver;
     }
     
+    /**
+     * This method sets the game to be over
+     */
     public void setGameOver() {
         this.isGameOver = true;
     }
