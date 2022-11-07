@@ -1,5 +1,5 @@
 /**
- * This class represents the main farm for the player to work in
+ * This class represents the entire farm a player owns.
  */
 public class MyFarm {
   private int landWidth;
@@ -8,7 +8,7 @@ public class MyFarm {
   private int day;
   
   /**
-   * This constructor sets the initial farm for the player
+   * This constructor declares the size of the player's farm and sets the day to 1.
    */
   public MyFarm() {
     this.landWidth = 1;
@@ -18,7 +18,7 @@ public class MyFarm {
   }
   
   /**
-   * This method displays the overview of the farm
+   * This method displays an overview of the farm.
    */
   public void displayOverview() {
     System.out.println("");
@@ -32,7 +32,7 @@ public class MyFarm {
   }
 
   /**
-   * This method creates the tiles of the farm
+   * This method instantiates each tile the farm has.
    */
   public void createTiles() {
     int i, j;
@@ -44,34 +44,38 @@ public class MyFarm {
   }
 
   /**
-   * This method gets the specific tile the player chooses
-   * @param xPos is the row position of the tile
-   * @param yPos is the column position of the tile
-   * @return the tile the player chooses
+   * This method gets a specific tile in the farm.
+   * 
+   * @param xPos  is the row position of the tile
+   * @param yPos  is the column position of the tile
+   * @return      the tile the player chooses
    */
   public Tile getTile(int xPos, int yPos) {
     return land[xPos - 1][yPos - 1];
   }
 
   /**
-   * This method gets the width of the farm
-   * @return the width of the farm
+   * This method gets the width of the farm which is also the amount of columns it has.
+   * 
+   * @return  the width of the farm
    */
   public int getLandWidth() {
     return this.landWidth;
   }
 
   /**
-   * This method gets the length of the farm
-   * @return the length of the farm
+   * This method gets the length of the farm which is also the amount of rows it has.
+   * 
+   * @return  the length of the farm
    */
   public int getLandLength() {
     return this.landLength;
   }
   
   /**
-   * This method gets the number of rocks currently present on the whole farm 
-   * @return the number of rocks present on the farm 
+   * This method gets the number of uncleared rocks currently present on the whole farm.
+   * 
+   * @return  the number of uncleared rocks present on the farm 
    */
   public int getRocks() {
     int i, j, count = 0;
@@ -86,8 +90,9 @@ public class MyFarm {
   }
 
   /**
-   * This method gets the number of crops currently present on the whole farm 
-   * @return the number of crops present on the farm
+   * This method gets the number of live crops currently present on the whole farm.
+   * 
+   * @return  the number of live crops present on the farm
    */
   public int getCrops() {
     int i, j, count = 0;
@@ -102,8 +107,9 @@ public class MyFarm {
   }
   
   /**
-   * This method gets the number of harvestable crops currently present on the whole farm
-   * @return the number of harvestable crops present on the farm
+   * This method gets the number of harvestable crops currently present on the whole farm.
+   * 
+   * @return  the number of harvestable crops present on the farm
    */
   public int getHarvestable() {
     int i, j, count = 0;
@@ -118,8 +124,9 @@ public class MyFarm {
   }
   
   /**
-   * This method gets the number of withered crops currently present on the whole farm
-   * @return the number of withered crops present on the farm
+   * This method gets the number of withered crops currently present on the whole farm.
+   * 
+   * @return  the number of withered crops present on the farm
    */
   public int getWithered() {
     int i, j, count = 0;
@@ -134,15 +141,16 @@ public class MyFarm {
   }
   
   /**
-   * This method gets the current day number
-   * @return the day number
+   * This method gets the current day.
+   * 
+   * @return  the current day
    */
   public int getDay() {
     return this.day;
   }
   
   /**
-   * This method advances the day by 1
+   * This method increments the day and ages all crops in the farm.
    */
   public void nextDay() {
     int i, j;

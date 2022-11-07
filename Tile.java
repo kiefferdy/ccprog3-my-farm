@@ -1,7 +1,7 @@
 import java.util.Random;
 
 /**
- * This class represents a tile in the farm
+ * This class represents each tile in the farm and stores all the necessary information that define it.
  */
 public class Tile {
     private int xPos, yPos;
@@ -14,9 +14,10 @@ public class Tile {
     private boolean hasWitheredCrop;
     
     /**
-     * This constructor sets the initial details of a tile
-     * @param xPos is the row position of the tile in the farm
-     * @param yPos is the column position of the tile in the farm
+     * This constructor defines and sets the tile to its default conditions.
+     * 
+     * @param xPos  the row position of the tile in the farm
+     * @param yPos  the column position of the tile in the farm
      */
     public Tile(int xPos, int yPos) {
         this.xPos = xPos;
@@ -27,7 +28,7 @@ public class Tile {
     }
     
     /**
-     * This method displays the status of a tile
+     * This method displays the status of a tile.
      */
     public void displayStatus() {
         System.out.printf("\nStatus of Tile %d, %d", this.xPos, this.yPos);
@@ -41,9 +42,10 @@ public class Tile {
     }
     
     /**
-     * This method attempts to plant a crop
-     * @param crop is the crop to be planted
-     * @return true if crop was planted successfully, false if unsuccessful
+     * This method attempts to plant a crop on the tile.
+     * 
+     * @param crop  is the crop to be planted
+     * @return      true if crop was planted successfully, false if unsuccessful
      */
     public boolean plantCrop(Crop crop) {
         if(this.crop != null || !this.isPlowed) {
@@ -59,7 +61,7 @@ public class Tile {
     }
     
     /**
-     * This method ages the crop every time the day advances
+     * This method ages the crop and sets the crop as withered if it was not harvested in time or its needs were not met.
      */
     public void ageCrop() {
         if(daysToHarvest <= 0) {
@@ -76,40 +78,45 @@ public class Tile {
     }
 
     /**
-     * This method checks if the tile contains a withered crop
-     * @return true if there is a withered crop, false if none
+     * This method checks if the tile contains a withered crop.
+     * 
+     * @return  true if there is a withered crop, false if none
      */
     public boolean getHasWitheredCrop() {
         return this.hasWitheredCrop;
     }
     
     /**
-     * This method checks if there is a crop on the tile
-     * @return true if there is a crop, false if none
+     * This method checks if there is a crop on the tile.
+     * 
+     * @return  true if there is a crop, false if none
      */
     public Crop getCrop() {
         return this.crop;
     }
     
     /**
-     * This method checks if there is a rock on the tile
-     * @return true if there is a rock, false if none
+     * This method checks if there is a rock on the tile.
+     * 
+     * @return  true if there is a rock, false if none
      */
     public boolean hasRock() {
         return this.hasRock;
     }
     
     /**
-     * This method attempts to set a rock onto a tile
-     * @param hasRock checks whether the tile is supposed to has a rock or not
+     * This method either sets a rock on the tile or clears the rock from the tile.
+     * 
+     * @param hasRock   specifies whether the tile has a rock or not
      */
     public void setRock(boolean hasRock) {
         this.hasRock = hasRock;
     }
 
     /**
-     * This method attempts to plow a tile
-     * @return true if plow is successful, false if not
+     * This method plows a tile in the case that it has not yet been plowed.
+     * 
+     * @return  true if plow is successful, false if not
      */
     public boolean setPlowed() {
         if(this.isPlowed) {
@@ -121,8 +128,9 @@ public class Tile {
     }
     
     /**
-     * This method attempts to use the shovel tool on a tile
-     * @return true if using the shovel is successful, false if not
+     * This method simulates shoveling the tile which removes the withered crop in the case that there is one.
+     * 
+     * @return  true if using the shovel is successful, false if not
      */
     public boolean useShovel() {
         if(!this.hasWitheredCrop) {
@@ -135,8 +143,9 @@ public class Tile {
     }
     
     /**
-     * This method attempts to use the pickaxe tool on a tile
-     * @return true if using the pickaxe is successful, false if not
+     * This method simulates using a pickaxe on the tile which clears the rock on it, if it has one.
+     * 
+     * @return  true if using the pickaxe is successful, false if not
      */
     public boolean usePickaxe() {
         if(!this.hasRock) {
@@ -148,8 +157,9 @@ public class Tile {
     }
     
     /**
-     * This method attempts to water a crop
-     * @return true if crop watering is successful, false if not
+     * This method increments the water count of a tile in the case that it contains a live crop.
+     * 
+     * @return  true if crop watering is successful, false if not
      */
     public boolean water() {
         if(this.hasWitheredCrop) {
@@ -165,16 +175,18 @@ public class Tile {
     }
 
     /**
-     * This method gets the number of times the crop has been watered
-     * @return the number of times the crop has been watered
+     * This method gets the number of times the crop has been watered.
+     * 
+     * @return  the number of times the crop has been watered
      */
     public int getTimesWatered() {
         return this.timesWatered;
     }
     
     /**
-     *  This method attempts to fertilize a crop
-     * @return true if crop fertilization is successful, false if not
+     *  This method adds to the fertilize count of a tile in the case that it contains a live crop.
+     * 
+     * @return  true if crop fertilization is successful, false if not
      */
     public boolean fertilize() {
         if(this.hasWitheredCrop) {
@@ -190,16 +202,18 @@ public class Tile {
     }
 
     /**
-     * This method gets the number of times the crop has been fertilized
-     * @return the number of times the crop has been fertilized
+     * This method gets the number of times the crop has been fertilized.
+     * 
+     * @return  the number of times the crop has been fertilized
      */
     public int getTimesFertilized() {
         return this.timesFertilized;
     }
     
     /**
-     * This method harvests the crop on a tile. Note that errors happen if harvesting is unsuccessful.
-     * @return the number of produce the crop produced
+     * This method harvests the crop on the tile in the case that the crop is ready for harvest.
+     * 
+     * @return  the number of produce the crop produced, otherwise -1 if the harvest was unsuccessful
      */
     public int harvestCrop() {
         if(this.crop == null) {
@@ -222,7 +236,7 @@ public class Tile {
     }
 
     /**
-     * This method clears the tile after being harvested
+     * This method resets the tile and clears any crop that was previously planted on it.
      */
     public void clearCrop() {
         this.crop = null;
@@ -233,24 +247,27 @@ public class Tile {
     }
 
     /**
-     * This method gets the number of days before a crop can be harvested
-     * @return the number of days before a crop can be harvested
+     * This method gets the number of days before a crop can be harvested.
+     * 
+     * @return  the number of days before a crop can be harvested
      */
     public int getDaysToHarvest() {
         return this.daysToHarvest;
     }
     
     /**
-     * This method gets the row position of the tile
-     * @return the row position of the tile
+     * This method gets the row position of the tile.
+     * 
+     * @return  the row position of the tile
      */
     public int getXPos() {
         return this.xPos;   
     }
     
     /**
-     * This method gets the column position of the tile
-     * @return the column position of the tile
+     * This method gets the column position of the tile.
+     * 
+     * @return  the column position of the tile
      */
     public int getYPos() {
         return this.yPos;   

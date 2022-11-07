@@ -72,15 +72,22 @@ public class Driver {
             } while(menuChoice < 1 || menuChoice > 9);
 
             switch(menuChoice) {
+                // Display character statistics
                 case 1:
                     player.displayStats();
                     break;
+                
+                // Display farm overview
                 case 2:
                     myFarm.displayOverview();
                     break;
+                
+                // Display tile status
                 case 3:
                     myFarm.getTile(1, 1).displayStatus();
                     break;
+                
+                // Use a tool
                 case 4:
                     int toolChoice = 0;
                     do {
@@ -114,6 +121,8 @@ public class Driver {
                             break;
                     }
                     break;
+                
+                // Plant a crop
                 case 5:
                     int i, cropChoice = 0;
                     do {
@@ -131,13 +140,19 @@ public class Driver {
 
                     player.plant(cropList.get(cropChoice - 1), 1, 1);
                     break;
+                
+                // Harvest a crop
                 case 6:
                     player.harvest(1, 1);
                     break;
+                
+                // Advance to the next day
                 case 7:
                     System.out.println("Sleeping...");
                     myFarm.nextDay();
                     break;
+                
+                // Register for a rank
                 case 8:
                     int rankChoice = 0;
                     do {
@@ -157,12 +172,15 @@ public class Driver {
 
                     player.register(rankList.get(rankChoice - 1));
                     break;
+                
+                // End the game
                 case 9:
                     player.setGameOver();
                     break;
             }
         } while(!player.checkGameOver());
 
+        // Game over messages
         System.out.println("");
         System.out.println("GAME OVER! Here are some of your game statistics...");
         player.displayStats();
