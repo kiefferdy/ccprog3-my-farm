@@ -1,10 +1,11 @@
+package MyFarmModel;
 import java.util.Random;
 
 /**
  * This class represents each tile in the farm and stores all the necessary information that define it.
  */
 public class Tile {
-    private int xPos, yPos;
+    private int tileNumber;
     private boolean isPlowed;
     private boolean hasRock;
     private Crop crop;
@@ -19,9 +20,8 @@ public class Tile {
      * @param xPos  the row position of the tile in the farm
      * @param yPos  the column position of the tile in the farm
      */
-    public Tile(int xPos, int yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Tile(int tileNumber) {
+        this.tileNumber = tileNumber;
         this.isPlowed = false;
         this.hasRock = false;
         this.daysToHarvest = -1;
@@ -30,15 +30,14 @@ public class Tile {
     /**
      * This method displays the status of a tile.
      */
-    public void displayStatus() {
-        System.out.printf("\nStatus of Tile %d, %d", this.xPos, this.yPos);
-        System.out.printf("\n\tHas Been Plowed: %s", this.isPlowed ? "Yes" : "No");
-        System.out.printf("\n\tContains Rock: %s", this.hasRock ? "Yes" : "No");
-        System.out.printf("\n\tContains Withered Crop: %s", this.hasWitheredCrop ? "Yes" : "No");
-        System.out.printf("\n\tCrop Planted: %s", this.crop != null ? this.crop.getName() : "N/A");
-        System.out.printf("\n\tTime Until Harvest: %s", this.crop != null ? Integer.toString(this.daysToHarvest) + " day(s)" : "N/A");
-        System.out.printf("\n\tRemaining Water Needs: %s", this.crop != null ? Integer.toString(this.crop.getWaterNeeds() - this.timesWatered) : "N/A");
-        System.out.printf("\n\tRemaining Fertilizer Needs: %s\n", this.crop != null ? Integer.toString(this.crop.getFertilizerNeeds() - this.timesFertilized) : "N/A");
+    public String displayStatus() {
+        return  "Has Been Plowed: " + (this.isPlowed ? "Yes" : "No") +
+                "\nContains Rock: " + (this.hasRock ? "Yes" : "No") + 
+                "\nContains Withered Crop: " + (this.hasWitheredCrop ? "Yes" : "No") +
+                "\nCrop Planted: " + (this.crop != null ? this.crop.getName() : "N/A") + 
+                "\nTime Until Harvest: " + (this.crop != null ? Integer.toString(this.daysToHarvest) + " day(s)" : "N/A") +
+                "\nRemaining Water Needs: " + (this.crop != null ? Integer.toString(this.crop.getWaterNeeds() - this.timesWatered) : "N/A") +
+                "\nRemaining Fertilizer Needs: " + (this.crop != null ? Integer.toString(this.crop.getFertilizerNeeds() - this.timesFertilized) : "N/A");
     }
     
     /**
@@ -66,11 +65,11 @@ public class Tile {
     public void ageCrop() {
         if(daysToHarvest <= 0) {
             this.hasWitheredCrop = true;
-            System.out.printf("\nALERT: Your %s crop on Tile (%d, %d) has withered because you failed to harvest it in time!\n", this.crop.getName(), this.xPos, this.yPos);
+            System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to harvest it in time!\n", this.crop.getName(), this.tileNumber);
         }
         else if(daysToHarvest == 1) {
             if(timesWatered < crop.getWaterNeeds() || timesFertilized < crop.getFertilizerNeeds()) {
-                System.out.printf("\nALERT: Your %s crop on Tile (%d, %d) has withered because you failed to meet its needs in time!\n", this.crop.getName(), this.xPos, this.yPos);
+                System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to meet its needs in time!\n", this.crop.getName(), this.tileNumber);
                 this.hasWitheredCrop = true;
             }
         }
@@ -120,7 +119,6 @@ public class Tile {
      */
     public boolean setPlowed() {
         if(this.isPlowed) {
-            System.out.println("You cannot plow a tile that is already plowed!");
             return false;
         }
         this.isPlowed = true;
@@ -149,7 +147,6 @@ public class Tile {
      */
     public boolean usePickaxe() {
         if(!this.hasRock) {
-            System.out.println("You cannot use your pickaxe on a tile that does not contain a rock!");
             return false;
         }
         this.hasRock = false;
@@ -163,11 +160,9 @@ public class Tile {
      */
     public boolean water() {
         if(this.hasWitheredCrop) {
-            System.out.println("You cannot water a withered crop!");
             return false;
         }
         if(this.crop == null) {
-            System.out.println("You cannot water an empty tile!");
             return false;
         }
         this.timesWatered++;
@@ -190,11 +185,9 @@ public class Tile {
      */
     public boolean fertilize() {
         if(this.hasWitheredCrop) {
-            System.out.println("You cannot fertilize a withered crop!");
             return false;
         }
         if(this.crop == null) {
-            System.out.println("You cannot fertilize an empty tile!");
             return false;
         }
         this.timesFertilized++;
@@ -256,20 +249,11 @@ public class Tile {
     }
     
     /**
-     * This method gets the row position of the tile.
-     * 
-     * @return  the row position of the tile
-     */
-    public int getXPos() {
-        return this.xPos;   
-    }
-    
-    /**
      * This method gets the column position of the tile.
      * 
      * @return  the column position of the tile
      */
-    public int getYPos() {
-        return this.yPos;   
+    public int getTileNumber() {
+        return this.tileNumber;   
     }
 }
