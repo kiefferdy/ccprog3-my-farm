@@ -1,3 +1,5 @@
+package MyFarmModel;
+
 /**
  * This class represents the farmer/player and is responsible for storing his/her statistics.
  */
@@ -71,11 +73,11 @@ public class Farmer {
      * @param xPos  is the row position of the tile to be plowed
      * @param yPos  is the column position of the tile to be plowed
      */
-    public void usePlow(int xPos, int yPos) {
-        boolean result = myFarm.getTile(xPos, yPos).setPlowed();
+    public void usePlow(int tileNumber) {
+        boolean result = myFarm.getTile(tileNumber).setPlowed();
         if(result) {
             this.xp += 0.5;
-            System.out.printf("Tile (%d, %d) has been plowed! You gained 0.5 experience.\n", xPos, yPos);
+            System.out.printf("Tile %d has been plowed! You gained 0.5 experience.\n", tileNumber);
         }
     }
 
@@ -85,11 +87,11 @@ public class Farmer {
      * @param xPos  is the row position of the tile to be watered
      * @param yPos  is the column position of the tile to be watered
      */
-    public void useWateringCan(int xPos, int yPos) {
-        boolean result = myFarm.getTile(xPos, yPos).water();
+    public void useWateringCan(int tileNumber) {
+        boolean result = myFarm.getTile(tileNumber).water();
         if(result) {
             this.xp += 0.5;
-            System.out.printf("You have watered Tile (%d, %d)! You gained 0.5 experience.\n", xPos, yPos);
+            System.out.printf("You have watered Tile %d! You gained 0.5 experience.\n", tileNumber);
         }
     }
 
@@ -99,16 +101,16 @@ public class Farmer {
      * @param xPos  is the row position of the tile to be fertilized
      * @param yPos  is the column position of the tile to be fertilized
      */
-    public void useFertilizer(int xPos, int yPos) {
+    public void useFertilizer(int tileNumber) {
         if(this.objectcoins < 10) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to fertilize your crop.\n", 10 - this.objectcoins);
         }
         else {
-            boolean result = myFarm.getTile(xPos, yPos).fertilize();
+            boolean result = myFarm.getTile(tileNumber).fertilize();
             if(result) {
                 this.objectcoins -= 10;
                 this.xp += 4;
-                System.out.printf("You have fertilized Tile (%d, %d)! You gained 4 experience.\n", xPos, yPos);
+                System.out.printf("You have fertilized Tile %d! You gained 4 experience.\n", tileNumber);
             }
         }
     }
@@ -119,12 +121,12 @@ public class Farmer {
      * @param xPos  is the row position of the tile where the pickaxe will be used
      * @param yPos  is the column position of the tile where the pickaxe will be used
      */
-    public void usePickaxe(int xPos, int yPos) {
+    public void usePickaxe(int tileNumber) {
         if(this.objectcoins < 50) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to use the pickaxe.\n", 50 - this.objectcoins);
         }
         else {
-            boolean result = myFarm.getTile(xPos, yPos).usePickaxe();
+            boolean result = myFarm.getTile(tileNumber).usePickaxe();
             if(result) {
                 this.objectcoins -= 50;
                 this.xp += 15;
@@ -139,12 +141,12 @@ public class Farmer {
      * @param xPos  is the row position of the tile where the shovel will be used
      * @param yPos  is the column position of the tile where the shovel will be used
      */
-    public void useShovel(int xPos, int yPos) {
+    public void useShovel(int tileNumber) {
         if(this.objectcoins < 7) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to use the shovel.\n", 7 - this.objectcoins);
         }
         else {
-            boolean result = myFarm.getTile(xPos, yPos).useShovel();
+            boolean result = myFarm.getTile(tileNumber).useShovel();
             if(result) {
                 this.objectcoins -= 7;
                 this.xp += 2;
@@ -160,15 +162,15 @@ public class Farmer {
      * @param xPos  is the row position of the tile where planting will occur
      * @param yPos  is the column position of the tile where planting will occur
      */
-    public void plant(Crop crop, int xPos, int yPos) {
+    public void plant(Crop crop, int tileNumber) {
         if(this.objectcoins < crop.getSeedCost()) {
             System.out.printf("Insufficient funds! You need %f more Objectcoins to plant this crop.\n", crop.getSeedCost() - this.objectcoins);
         }
         else {
-            boolean result = myFarm.getTile(xPos, yPos).plantCrop(crop);
+            boolean result = myFarm.getTile(tileNumber).plantCrop(crop);
             if(result) {
                 this.objectcoins -= crop.getSeedCost();
-                System.out.printf("You have successfully planted %s on Tile (%d, %d)!\n", crop.getName(), xPos, yPos);
+                System.out.printf("You have successfully planted %s on Tile %d!\n", crop.getName(), tileNumber);
             }
         }
     }
@@ -179,22 +181,22 @@ public class Farmer {
      * @param xPos  is the row position of the tile where harvesting will occur
      * @param yPos  is the column position of the tile where harvesting will occur
      */
-    public void harvest(int xPos, int yPos) {
-        int produce = myFarm.getTile(xPos, yPos).harvestCrop();
+    public void harvest(int tileNumber) {
+        int produce = myFarm.getTile(tileNumber).harvestCrop();
         if(produce != -1) {
-            int harvestTotal = produce * (myFarm.getTile(xPos, yPos).getCrop().getBaseHarvestPrice() + this.rank.getBonusEarnings());
-            double waterBonus = harvestTotal * 0.2 * (myFarm.getTile(xPos, yPos).getTimesWatered() - 1);
-            double fertilizerBonus = harvestTotal * 0.5 * myFarm.getTile(xPos, yPos).getTimesFertilized();
+            int harvestTotal = produce * (myFarm.getTile(tileNumber).getCrop().getBaseHarvestPrice() + this.rank.getBonusEarnings());
+            double waterBonus = harvestTotal * 0.2 * (myFarm.getTile(tileNumber).getTimesWatered() - 1);
+            double fertilizerBonus = harvestTotal * 0.5 * myFarm.getTile(tileNumber).getTimesFertilized();
             double finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
 
-            if(myFarm.getTile(xPos, yPos).getCrop().getType().equals("Flower")) {
+            if(myFarm.getTile(tileNumber).getCrop().getType().equals("Flower")) {
                 finalHarvestPrice *= 1.1;
             }
 
             this.objectcoins += finalHarvestPrice;
-            this.xp += myFarm.getTile(xPos, yPos).getCrop().getExpYield();
-            System.out.printf("Success! Your crop produced %d products. You earned %f Objectcoins and gained %f experience.\n", produce, finalHarvestPrice, myFarm.getTile(xPos, yPos).getCrop().getExpYield());
-            myFarm.getTile(xPos, yPos).clearCrop();
+            this.xp += myFarm.getTile(tileNumber).getCrop().getExpYield();
+            System.out.printf("Success! Your crop produced %d products. You earned %f Objectcoins and gained %f experience.\n", produce, finalHarvestPrice, myFarm.getTile(tileNumber).getCrop().getExpYield());
+            myFarm.getTile(tileNumber).clearCrop();
         }
     }
 
@@ -250,7 +252,7 @@ public class Farmer {
      * @return  true if it is game over, false if not
      */
     public boolean checkGameOver() {
-        if((myFarm.getWithered() + myFarm.getRocks() == (myFarm.getLandLength() * myFarm.getLandWidth())) ||
+        if((myFarm.getWithered() + myFarm.getRocks() == (myFarm.getTileTotal())) ||
            (myFarm.getCrops() == 0) &&
            (this.objectcoins < 5)) {
             this.isGameOver = true; 
