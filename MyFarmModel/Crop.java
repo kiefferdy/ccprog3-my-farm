@@ -1,3 +1,4 @@
+package MyFarmModel;
 /**
  * This class stores the parameters that define each crop.
  */
@@ -44,6 +45,19 @@ public class Crop {
         this.seedCost = seedCost;
         this.baseHarvestPrice = baseHarvestPrice;
         this.expYield = expYield;
+    }
+
+    public String displayCrop() {
+        return  this.name.toUpperCase() + 
+                "\n- Type: " + this.type + 
+                "\n- Seed Cost: " + this.seedCost +
+                "\n- Harvest Time: " + this.harvestTime +
+                "\n- Water Needs: " + this.waterNeeds + 
+                "\n- Fertilizer Needs: " + this.fertilizerNeeds +
+                "\n- Min/Max Produce: " + this.minProduce + "/" + this.maxProduce +
+                "\n- Base Harvest Price: " + this.baseHarvestPrice + 
+                "\n- XP Yield after Harvest: " + this.expYield + 
+                "\n\n";
     }
     
     /** 
