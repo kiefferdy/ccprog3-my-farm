@@ -12,6 +12,10 @@ public class Tile {
     private int daysToHarvest;
     private int timesWatered;
     private int timesFertilized;
+    private int waterBonus;
+    private int fertilizerBonus;
+    private int waterNeeds;
+    private int fertilizerNeeds;
     private boolean hasWitheredCrop;
     
     /**
@@ -35,9 +39,11 @@ public class Tile {
                 "\nContains Rock: " + (this.hasRock ? "Yes" : "No") + 
                 "\nContains Withered Crop: " + (this.hasWitheredCrop ? "Yes" : "No") +
                 "\nCrop Planted: " + (this.crop != null ? this.crop.getName() : "N/A") + 
-                "\nTime Until Harvest: " + (this.crop != null ? Integer.toString(this.daysToHarvest) + " day(s)" : "N/A") +
-                "\nRemaining Water Needs: " + (this.crop != null ? Integer.toString(this.crop.getWaterNeeds() - this.timesWatered) : "N/A") +
-                "\nRemaining Fertilizer Needs: " + (this.crop != null ? Integer.toString(this.crop.getFertilizerNeeds() - this.timesFertilized) : "N/A");
+                "\nTime Until Harvest: " + (this.crop != null && this.daysToHarvest >= 0 ? Integer.toString(this.daysToHarvest) + " day(s)" : "N/A") +
+                "\nRemaining Water Needs: " + (this.crop != null ? Integer.toString(this.waterNeeds) : "N/A") +
+                "\nRemaining Fertilizer Needs: " + (this.crop != null ? Integer.toString(this.fertilizerNeeds) : "N/A") +
+                "\nWater Bonus: " + (this.crop != null ? Integer.toString(this.waterBonus) : "N/A") +
+                "\nFertilizer Bonus: " + (this.crop != null ? Integer.toString(this.fertilizerBonus) : "N/A");
     }
     
     /**
@@ -63,17 +69,17 @@ public class Tile {
      * This method ages the crop and sets the crop as withered if it was not harvested in time or its needs were not met.
      */
     public void ageCrop() {
-        if(daysToHarvest <= 0) {
+        this.daysToHarvest--;
+        if(daysToHarvest == -1) {
             this.hasWitheredCrop = true;
             System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to harvest it in time!\n", this.crop.getName(), this.tileNumber);
         }
-        else if(daysToHarvest == 1) {
+        else if(daysToHarvest == 0) {
             if(timesWatered < crop.getWaterNeeds() || timesFertilized < crop.getFertilizerNeeds()) {
                 System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to meet its needs in time!\n", this.crop.getName(), this.tileNumber);
                 this.hasWitheredCrop = true;
             }
         }
-        this.daysToHarvest--;
     }
 
     /**
@@ -126,15 +132,12 @@ public class Tile {
     }
     
     /**
-     * This method simulates shoveling the tile which removes the withered crop in the case that there is one.
+     * This method simulates shoveling the tile which clears the tile of any live or withered crops.
      * 
      * @return  true if using the shovel is successful, false if not
      */
     public boolean useShovel() {
-        if(!this.hasWitheredCrop) {
-            System.out.println("You cannot use your shovel on a tile that does not contain a withered crop!");
-            return false;
-        }
+        System.out.println("Tile cleared!");
         this.hasWitheredCrop = false;
         this.clearCrop();
         return true;
@@ -165,7 +168,13 @@ public class Tile {
         if(this.crop == null) {
             return false;
         }
+
         this.timesWatered++;
+        this.waterNeeds = this.crop.getWaterNeeds() - this.timesWatered;
+        if(this.waterNeeds < 0) {
+            this.waterNeeds = 0;
+            this.waterBonus++;
+        }
         return true;
     }
 
@@ -190,7 +199,13 @@ public class Tile {
         if(this.crop == null) {
             return false;
         }
+
         this.timesFertilized++;
+        this.fertilizerNeeds = this.crop.getFertilizerNeeds() - this.timesFertilized;
+        if(this.fertilizerNeeds < 0) {
+            this.fertilizerNeeds = 0;
+            this.fertilizerBonus++;
+        }
         return true;
     }
 
@@ -235,6 +250,10 @@ public class Tile {
         this.crop = null;
         this.timesWatered = 0;
         this.timesFertilized = 0;
+        this.waterBonus = 0;
+        this.fertilizerBonus = 0;
+        this.waterNeeds = 0;
+        this.fertilizerNeeds = 0;
         this.daysToHarvest = -1;
         this.isPlowed = false;
     }

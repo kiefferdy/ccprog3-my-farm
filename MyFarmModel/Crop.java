@@ -1,4 +1,5 @@
 package MyFarmModel;
+
 /**
  * This class stores the parameters that define each crop.
  */

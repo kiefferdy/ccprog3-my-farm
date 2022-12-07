@@ -1,4 +1,5 @@
 package MyFarmModel;
+
 /**
  * This class represents the entire farm a player owns.
  */
