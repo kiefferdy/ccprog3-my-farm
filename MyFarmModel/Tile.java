@@ -8,6 +8,7 @@ import java.util.Random;
 public class Tile {
     private int tileNumber;
     private boolean isPlowed;
+    private boolean isCollateral;
     private boolean hasRock;
     private Crop crop;
     private int daysToHarvest;
@@ -28,6 +29,7 @@ public class Tile {
     public Tile(int tileNumber) {
         this.tileNumber = tileNumber;
         this.isPlowed = false;
+        this.isCollateral = false;
         this.hasRock = false;
         this.daysToHarvest = -1;
     }
@@ -37,6 +39,7 @@ public class Tile {
      */
     public String displayStatus() {
         return  "Has Been Plowed: " + (this.isPlowed ? "Yes" : "No") +
+                "\nIs Occupied: " + (this.isOccupied() ? "Yes" : "No") +
                 "\nContains Rock: " + (this.hasRock ? "Yes" : "No") + 
                 "\nContains Withered Crop: " + (this.hasWitheredCrop ? "Yes" : "No") +
                 "\nCrop Planted: " + (this.crop != null ? this.crop.getName() : "N/A") + 
@@ -53,33 +56,30 @@ public class Tile {
      * @param crop  is the crop to be planted
      * @return      true if crop was planted successfully, false if unsuccessful
      */
-    public boolean plantCrop(Crop crop) {
-        if(this.crop != null || !this.isPlowed) {
-            return false;
-        }
+    public void plantCrop(Crop crop) {
         this.crop = crop;
         this.daysToHarvest = crop.getHarvestTime();
         this.timesWatered = 0;
         this.timesFertilized = 0;
-
-        return true;
+        this.waterNeeds = this.crop.getWaterNeeds();
+        this.fertilizerNeeds = this.crop.getFertilizerNeeds();
     }
     
     /**
      * This method ages the crop and sets the crop as withered if it was not harvested in time or its needs were not met.
      */
     public void ageCrop() {
-        if(daysToHarvest <= 0) {
+        this.daysToHarvest--;
+        if(daysToHarvest == -1) {
             this.hasWitheredCrop = true;
             System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to harvest it in time!\n", this.crop.getName(), this.tileNumber);
         }
-        else if(daysToHarvest == 1) {
+        else if(daysToHarvest == 0) {
             if(timesWatered < crop.getWaterNeeds() || timesFertilized < crop.getFertilizerNeeds()) {
                 System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to meet its needs in time!\n", this.crop.getName(), this.tileNumber);
                 this.hasWitheredCrop = true;
             }
         }
-        this.daysToHarvest--;
     }
 
     /**
@@ -100,6 +100,13 @@ public class Tile {
         return this.crop;
     }
     
+    public boolean isOccupied() {
+        if(this.hasRock || this.hasWitheredCrop || this.isCollateral || this.crop != null) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * This method checks if there is a rock on the tile.
      * 
@@ -118,6 +125,10 @@ public class Tile {
         this.hasRock = hasRock;
     }
 
+    public boolean isPlowed() {
+        return this.isPlowed;
+    }
+
     /**
      * This method plows a tile in the case that it has not yet been plowed.
      * 
@@ -129,6 +140,14 @@ public class Tile {
         }
         this.isPlowed = true;
         return true;
+    }
+
+    public boolean isCollateral() {
+        return this.isCollateral;
+    }
+
+    public void setCollateral() {
+        this.isCollateral = true;
     }
     
     /**
@@ -245,6 +264,8 @@ public class Tile {
      */
     public void clearCrop() {
         this.crop = null;
+        this.hasWitheredCrop = false;
+        this.isPlowed = false;
         this.timesWatered = 0;
         this.timesFertilized = 0;
         this.waterBonus = 0;
@@ -252,7 +273,6 @@ public class Tile {
         this.waterNeeds = 0;
         this.fertilizerNeeds = 0;
         this.daysToHarvest = -1;
-        this.isPlowed = false;
     }
 
     /**

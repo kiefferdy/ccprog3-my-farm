@@ -1,6 +1,7 @@
 package MyFarmModel;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * This class represents the entire farm a player owns.
@@ -141,6 +142,55 @@ public class MyFarm {
             }
         }
         this.day++;
+    }
+
+    public boolean checkTreeEligibility(int tileNumber) {
+        tileNumber++;
+        if(tileNumber < 7 || tileNumber > 44) {
+            return false;
+        }
+
+        int emptyCount = 0;
+        ArrayList<Integer> adjacentTiles = new ArrayList<Integer>();
+        if(tileNumber % 5 == 2 || tileNumber % 5 == 3 || tileNumber % 5 == 4) {
+            adjacentTiles.add(tileNumber - 6);
+            adjacentTiles.add(tileNumber - 5);
+            adjacentTiles.add(tileNumber - 4);
+            adjacentTiles.add(tileNumber - 1);
+            adjacentTiles.add(tileNumber + 1);
+            adjacentTiles.add(tileNumber + 4);
+            adjacentTiles.add(tileNumber + 5);
+            adjacentTiles.add(tileNumber + 6);
+
+            for (Integer i : adjacentTiles) {
+                if(!land[i - 1].isOccupied()) {
+                    emptyCount++;
+                }
+            }
+        }
+
+        if(emptyCount == 8) {
+            return true;
+        }
+        return false;
+    }
+
+    public void collateralize(int tileNumber) {
+        tileNumber++;
+
+        ArrayList<Integer> adjacentTiles = new ArrayList<Integer>();
+        adjacentTiles.add(tileNumber - 6);
+        adjacentTiles.add(tileNumber - 5);
+        adjacentTiles.add(tileNumber - 4);
+        adjacentTiles.add(tileNumber - 1);
+        adjacentTiles.add(tileNumber + 1);
+        adjacentTiles.add(tileNumber + 4);
+        adjacentTiles.add(tileNumber + 5);
+        adjacentTiles.add(tileNumber + 6);
+
+        for (Integer i : adjacentTiles) {
+            land[i - 1].setCollateral();
+        }
     }
 
     public boolean storm() {

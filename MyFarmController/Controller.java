@@ -67,6 +67,7 @@ public class Controller {
             boolean result = this.model.getFarmer().plant(this.model.getCropList().get(0), tile.getTileNumber());
             if(result) {
                 this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(0).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
             }
             else {
                 if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(0).getSeedCost()) {
@@ -87,6 +88,7 @@ public class Controller {
             boolean result = this.model.getFarmer().plant(this.model.getCropList().get(1), tile.getTileNumber());
             if(result) {
                 this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(1).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
             }
             else {
                 if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(1).getSeedCost()) {
@@ -107,6 +109,7 @@ public class Controller {
             boolean result = this.model.getFarmer().plant(this.model.getCropList().get(2), tile.getTileNumber());
             if(result) {
                 this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(2).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
             }
             else {
                 if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(2).getSeedCost()) {
@@ -127,6 +130,7 @@ public class Controller {
             boolean result = this.model.getFarmer().plant(this.model.getCropList().get(3), tile.getTileNumber());
             if(result) {
                 this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(3).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
             }
             else {
                 if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(3).getSeedCost()) {
@@ -147,6 +151,7 @@ public class Controller {
             boolean result = this.model.getFarmer().plant(this.model.getCropList().get(4), tile.getTileNumber());
             if(result) {
                 this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(4).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
             }
             else {
                 if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(4).getSeedCost()) {
@@ -164,7 +169,19 @@ public class Controller {
         });
 
         this.view.getSunflowerButton().addActionListener(b->{
-            this.model.getFarmer().plant(this.model.getCropList().get(5), tile.getTileNumber());
+            boolean result = this.model.getFarmer().plant(this.model.getCropList().get(5), tile.getTileNumber());
+            if(result) {
+                this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(5).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
+            }
+            else {
+                if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(5).getSeedCost()) {
+                    this.view.getSystemLogs().getLogs().setText("Insufficient funds! You need " + ((double) this.model.getCropList().get(5).getSeedCost() - this.model.getFarmer().getObjectcoins()) + " more Objectcoins to plant this crop.");
+                }
+                else {
+                    this.view.getSystemLogs().getLogs().setText("You may not plant on this tile!");
+                }
+            }
             this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins());
 
             this.view.setSeedsVisibility(false);
@@ -172,16 +189,56 @@ public class Controller {
             this.view.setTileStatusVisibility(false);
         });
 
-        this.view.getAppleButton().addActionListener(a->{
+        this.view.getMangoButton().addActionListener(a->{
+            boolean result = this.model.getFarmer().plant(this.model.getCropList().get(6), tile.getTileNumber());
+            if(result) {
+                this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(6).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
+            }
+            else {
+                if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(6).getSeedCost()) {
+                    this.view.getSystemLogs().getLogs().setText("Insufficient funds! You need " + ((double) this.model.getCropList().get(6).getSeedCost() - this.model.getFarmer().getObjectcoins()) + " more Objectcoins to plant this crop.");
+                }
+                else if(!this.model.getMyFarm().checkTreeEligibility(tile.getTileNumber())) {
+                    this.view.getSystemLogs().getLogs().setText("You may not plant a tree here!" +
+                                                                "\nTo plant a tree, all adjacent tiles must be unoccupied!");
+                }
+                else {
+                    this.view.getSystemLogs().getLogs().setText("You may not plant on this tile!");
+                }
+            }
+            this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins());
+
             this.view.setSeedsVisibility(false);
             this.view.setTileNameVisibility(false);
             this.view.setTileStatusVisibility(false);
+            this.updateCollateral();
         });
 
-        this.view.getMangoButton().addActionListener(a->{
+        this.view.getAppleButton().addActionListener(a->{
+            boolean result = this.model.getFarmer().plant(this.model.getCropList().get(7), tile.getTileNumber());
+            if(result) {
+                this.view.getSystemLogs().getLogs().setText("You have successfully planted a " + this.model.getCropList().get(7).getName() + " on Tile " + (tile.getTileNumber() + 1) + "!");
+                this.view.setTileGreen(tile.getTileNumber());
+            }
+            else {
+                if(this.model.getFarmer().getObjectcoins() < this.model.getCropList().get(7).getSeedCost()) {
+                    this.view.getSystemLogs().getLogs().setText("Insufficient funds! You need " + ((double) this.model.getCropList().get(7).getSeedCost() - this.model.getFarmer().getObjectcoins()) + " more Objectcoins to plant this crop.");
+                }
+                else if(!this.model.getMyFarm().checkTreeEligibility(tile.getTileNumber())) {
+                    this.view.getSystemLogs().getLogs().setText("You may not plant a tree here!" +
+                                                                "\nTo plant a tree, all adjacent tiles must be unoccupied!");
+                }
+                else {
+                    this.view.getSystemLogs().getLogs().setText("You may not plant on this tile!");
+                }
+            }
+            this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins());
+
             this.view.setSeedsVisibility(false);
             this.view.setTileNameVisibility(false);
             this.view.setTileStatusVisibility(false);
+            this.updateCollateral();
         });
 
         this.view.getToolPriceButton().addActionListener(b->{
@@ -280,6 +337,7 @@ public class Controller {
                 }
                 else {
                     this.view.getSystemLogs().getLogs().setText("Tile cleared!\nYou spent 7 Objectcoins and gained 2 experience.");
+                    this.view.setTileOriginal(tile.getTileNumber());
                 }
             }
             else {
@@ -295,16 +353,29 @@ public class Controller {
 
         this.view.getSleepButton().addActionListener(a->{
             if(this.model.getFarmer().checkGameOver()) {
-                endgame();
+                endGame();
             }
             else {
                 this.model.getMyFarm().nextDay();
+                int i;
+                for(i = 0; i < 50; i++) {
+                    if(!this.model.getMyFarm().getTile(i).isOccupied()) {
+                        this.view.setTileOriginal(i);
+                    }
+                    else if(this.model.getMyFarm().getTile(i).getHasWitheredCrop()) {
+                        this.view.setTileBrown(i);
+                    }
+                    else if(this.model.getMyFarm().getTile(i).getDaysToHarvest() == 0 && !this.model.getMyFarm().getTile(i).getHasWitheredCrop()) {
+                        this.view.setTileGold(i);
+                    }
+                }
+
                 this.view.getSystemLogs().clearLogs();
                 this.view.getSystemLogs().getLogs().setText("You take a good rest in your shed.\nCurrent Day: " + this.model.getMyFarm().getDay());
     
                 boolean result = this.model.getMyFarm().storm();
                 if(result) {
-                    this.view.getSystemLogs().getLogs().setText(this.view.getSystemLogs().getLogs().getText() + "\nA STORM BREWED WHILE YOU WERE SLEEPING! ALL CROPS HAVE WASHED OUT OF THE FARM!");
+                    this.view.getSystemLogs().getLogs().setText(this.view.getSystemLogs().getLogs().getText() + "\nA STORM BREWED WHILE YOU WERE SLEEPING! ALL CROPS WERE WASHED OUT OF THE FARM!");
                 }
             }
             this.view.setTileNameVisibility(false);
@@ -324,8 +395,15 @@ public class Controller {
         });
 
         this.view.getTileStatus().getHarvestButton().addActionListener(a->{
+            String harvestStatus = this.model.getFarmer().harvest(tile.getTileNumber());
+            
             this.view.getSystemLogs().clearLogs();
-            this.view.getSystemLogs().getLogs().setText(this.model.getFarmer().harvest(tile.getTileNumber()));
+            this.view.getSystemLogs().getLogs().setText(harvestStatus);
+
+            if(harvestStatus.startsWith("Success!")) {
+                this.view.setTileOriginal(tile.getTileNumber());
+            }
+
             this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins());
             this.view.setXPText("XP: " + this.model.getFarmer().getXP());
             this.view.setLevelText("Level: " + this.model.getFarmer().getLevel());
@@ -404,7 +482,7 @@ public class Controller {
         });
 
         this.view.getEndGameButton().addActionListener(a->{
-            endgame();
+            endGame();
         });
     }
 
@@ -436,10 +514,22 @@ public class Controller {
         this.view.setTileStatusVisibility(true);
     }
 
-    public void endgame() {
+    public void endGame() {
         EndgameStatsView endgame = new EndgameStatsView();
         endgame.getDescription().setText(this.model.getFarmer().displayStats());
         endgame.getDescription().setText(endgame.getDescription().getText() + this.model.getMyFarm().displayOverview());
         this.view.setCertainButtonsClickability(false);
+    }
+
+    public void updateCollateral() {
+        int i;
+        for(i = 0; i < 50; i++) {
+            if(this.model.getMyFarm().getTile(i).isCollateral()) {
+                this.view.disableTileButton(i);
+            }
+            else {
+                this.view.enableTileButton(i);
+            }
+        }
     }
 }

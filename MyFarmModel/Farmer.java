@@ -21,7 +21,7 @@ public class Farmer {
      */
     public Farmer(String username, Rank rank, MyFarm myFarm) {
         this.username = username;
-        this.objectcoins = 100;
+        this.objectcoins = 1000;
         this.xp = 0;
         this.level = 0;
         this.rank = rank;
@@ -174,18 +174,27 @@ public class Farmer {
      * @param yPos  is the column position of the tile where planting will occur
      */
     public boolean plant(Crop crop, int tileNumber) {
-        boolean b = false;
         if(this.objectcoins < crop.getSeedCost()) {
-            b = false;
+            return false;
         }
         else {
-            boolean result = myFarm.getTile(tileNumber).plantCrop(crop);
-            if(result) {
-                this.objectcoins -= crop.getSeedCost();
-                b = true;
+            if(crop.getType().equals("Fruit tree")) {
+                if(!myFarm.checkTreeEligibility(tileNumber)) {
+                    return false;
+                }
+            }
+            if(myFarm.getTile(tileNumber).getCrop() != null || !myFarm.getTile(tileNumber).isPlowed()) {
+                return false;
             }
         }
-        return b;
+
+        if(crop.getType().equals("Fruit tree")) {
+            myFarm.collateralize(tileNumber);
+        }
+
+        myFarm.getTile(tileNumber).plantCrop(crop);
+        this.objectcoins -= crop.getSeedCost();
+        return true;
     }
 
     /**

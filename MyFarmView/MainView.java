@@ -79,7 +79,7 @@ public class MainView {
             this.tiles[i].setText("Tile "+ (i + 1));
             this.tiles[i].setName(Integer.toString(i));
             this.tiles[i].setBorder(BorderFactory.createEtchedBorder());
-            this.tiles[i].setBackground(new Color(0x90EE90));
+            this.tiles[i].setBackground(new Color(0xd4f5bf));
             this.tiles[i].addActionListener(null);
             this.tiles[i].setFocusable(false);
             this.tiles[i].setPreferredSize(new Dimension(50, 50));
@@ -576,5 +576,28 @@ public class MainView {
             this.tiles[i].setEnabled(text);
         }
     }
-}
 
+    public void enableTileButton(int tileNumber) {
+        this.tiles[tileNumber].setEnabled(true);
+    }
+
+    public void disableTileButton(int tileNumber) {
+        this.tiles[tileNumber].setEnabled(false);
+    }
+
+    public void setTileOriginal(int tileNumber) {
+        this.tiles[tileNumber].setBackground(new Color(0xd4f5bf));
+    }
+
+    public void setTileGreen(int tileNumber) {
+        this.tiles[tileNumber].setBackground(new Color(0x74ed28));
+    }
+
+    public void setTileBrown(int tileNumber) {
+        this.tiles[tileNumber].setBackground(new Color(0xb89c69));
+    }
+
+    public void setTileGold(int tileNumber) {
+        this.tiles[tileNumber].setBackground(new Color(0xf7cf1b));
+    }
+}
