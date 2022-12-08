@@ -1,4 +1,4 @@
-To whoever uses the Farming Simulation:
+To whoever uses the Farming Simulator:
 
 All Icons (seeds, tools, etc.) were taken from Google
 
