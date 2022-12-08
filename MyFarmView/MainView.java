@@ -20,7 +20,7 @@ public class MainView {
     private JButton tiles[];                                                        // farmland
     private JPanel upperPanel, farmland, lowerPanel, leftPanel, rightPanel;         // sections of the GUI
     private JButton registerRank, howToPlay, sleep, seedPrices, toolPrices;         // definitely useful buttons
-    private JButton displayFarmStats, displayRanks;                                 // more definitely useful buttons
+    private JButton displayFarmStats, displayRanks, newGame, endGame;               // more definitely useful buttons
     private JButton plow, wateringCan, fertilizer, pickaxe, shovel;                 // tool buttons
     private JButton turnip, carrot, potato, rose, tulip, sunflower, mango, apple;   // seed buttons
     private JLabel seedText, toolText, tileName;                                    // text
@@ -85,11 +85,6 @@ public class MainView {
             this.tiles[i].setPreferredSize(new Dimension(50, 50));
             this.farmland.add(this.tiles[i]);
         }
-        
-        // Lower Part of the GUI
-        this.lowerPanel = new JPanel();
-        this.lowerPanel.setPreferredSize(new Dimension(150, 100));
-        this.lowerPanel.setLayout(new FlowLayout());
 
         this.optionsPanel = new JPanel();
         this.optionsPanel.setLayout(new FlowLayout());
@@ -115,24 +110,42 @@ public class MainView {
         this.sleep.setBorder(BorderFactory.createEtchedBorder());
         this.sleep.setFocusable(false);
 
+        // Button to display the farm's current stats
         this.displayFarmStats = new JButton();
         this.displayFarmStats.setText("Farm Stats");
         this.displayFarmStats.setPreferredSize(new Dimension(100, 35));
         this.displayFarmStats.setBorder(BorderFactory.createEtchedBorder());
         this.displayFarmStats.setFocusable(false);
 
+        // Button to display the possible farmer ranks
         this.displayRanks = new JButton();
         this.displayRanks.setText("Rank List");
         this.displayRanks.setPreferredSize(new Dimension(100, 35));
         this.displayRanks.setBorder(BorderFactory.createEtchedBorder());
         this.displayRanks.setFocusable(false);
 
+        // Button to start a new game
+        this.newGame = new JButton();
+        this.newGame.setText("New Game");
+        this.newGame.setPreferredSize(new Dimension(100, 35));
+        this.newGame.setBorder(BorderFactory.createEtchedBorder());
+        this.newGame.setFocusable(false);
+
+        // Button to end the game voluntarily
+        this.endGame = new JButton();
+        this.endGame.setText("End Game");
+        this.endGame.setPreferredSize(new Dimension(100, 35));
+        this.endGame.setBorder(BorderFactory.createEtchedBorder());
+        this.endGame.setFocusable(false);
+
         // adding components to the upper panel
+        this.optionsPanel.add(this.newGame);
         this.optionsPanel.add(this.howToPlay);
         this.optionsPanel.add(this.displayFarmStats);
         this.optionsPanel.add(this.displayRanks);
         this.optionsPanel.add(this.registerRank);
         this.optionsPanel.add(this.sleep);
+        this.optionsPanel.add(this.endGame);
 
         // ------------------------------- TOOLS ----------------------------------- //
         this.rightPanel = new JPanel();
@@ -328,6 +341,12 @@ public class MainView {
         this.tileName.setHorizontalAlignment(JLabel.CENTER);
         this.tileName.setVisible(false);
 
+        // Lower Part of the GUI
+        this.lowerPanel = new JPanel();
+        this.lowerPanel.setPreferredSize(new Dimension(150, 100));
+        this.lowerPanel.setLayout(new FlowLayout());
+
+        // System Logs to be placed at the bottom of the GUI
         this.systemLogs = new SystemLogsView();
         this.systemLogs.setPreferredSize(new Dimension(750, 90));
 
@@ -360,9 +379,10 @@ public class MainView {
         this.leftPanel.add(tileName, BorderLayout.NORTH);
         this.leftPanel.add(tileStatus, BorderLayout.CENTER);
 
+        // adding systemLogs to the lower panel
         this.lowerPanel.add(systemLogs);
 
-        // adding all panels to the main
+        // adding all panels to the main frame
         this.main.add(this.upperPanel, BorderLayout.NORTH);
         this.main.add(this.farmland, BorderLayout.CENTER);
         this.main.add(this.lowerPanel, BorderLayout.SOUTH);
@@ -529,8 +549,20 @@ public class MainView {
         return this.registerRank;
     }
 
+    public JButton getNewGameButton() {
+        return this.newGame;
+    }
+
+    public JButton getEndGameButton() {
+        return this.endGame;
+    }
+
     public SystemLogsView getSystemLogs() {
         return this.systemLogs;
+    }
+
+    public JFrame getMainFrame() {
+        return this.main;
     }
 }
 

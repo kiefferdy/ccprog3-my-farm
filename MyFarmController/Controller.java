@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import MyFarmModel.Model;
+import MyFarmView.EndgameStatsView;
 import MyFarmView.FarmStatsView;
 import MyFarmView.HowToPlayView;
 import MyFarmView.MainView;
@@ -390,6 +391,22 @@ public class Controller {
             }
             this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins());
             this.view.setRankText("Rank: " + this.model.getFarmer().getRank().getRank());
+        });
+
+        this.view.getNewGameButton().addActionListener(a->{
+            //view.getMainFrame().dispose();
+            //username = new Username();
+            //new MainView();
+            //model = new Model();
+        });
+
+        this.view.getEndGameButton().addActionListener(a->{
+            EndgameStatsView endgame = new EndgameStatsView();
+
+            endgame.getDescription().setText(this.model.getFarmer().displayStats());
+            endgame.getDescription().setText(endgame.getDescription().getText() + this.model.getMyFarm().displayOverview());
+
+            
         });
     }
 

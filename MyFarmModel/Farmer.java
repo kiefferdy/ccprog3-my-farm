@@ -31,15 +31,16 @@ public class Farmer {
 
     /**
      * This method displays the current statistics of the player.
+     * 
+     * @return string of text that displays the statistics of the player
      */
-    public void displayStats() {
-        System.out.println("");
-        System.out.println("Character Statistics");
-        System.out.println("Name: " + this.username);
-        System.out.println("Rank: " + this.rank.getRank());
-        System.out.println("Level: " + this.getLevel());
-        System.out.println("Total XP: " + this.xp);
-        System.out.println("Objectcoins : " + this.objectcoins);
+    public String displayStats() {
+        return  "Character Statistics" + 
+                "\nName: " + this.username +
+                "\nRank: " + this.rank.getRank() +
+                "\nLevel: " + this.getLevel() + 
+                "\nTotal XP: " + this.xp +
+                "\nObjectcoins : " + this.objectcoins + "\n\n";
     }
 
     /**
