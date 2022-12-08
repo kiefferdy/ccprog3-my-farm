@@ -1,4 +1,5 @@
 package MyFarmModel;
+
 import java.util.Random;
 
 /**
@@ -54,7 +55,6 @@ public class Tile {
      */
     public boolean plantCrop(Crop crop) {
         if(this.crop != null || !this.isPlowed) {
-            System.out.println("You may not plant on this tile!");
             return false;
         }
         this.crop = crop;
@@ -69,17 +69,17 @@ public class Tile {
      * This method ages the crop and sets the crop as withered if it was not harvested in time or its needs were not met.
      */
     public void ageCrop() {
-        this.daysToHarvest--;
-        if(daysToHarvest == -1) {
+        if(daysToHarvest <= 0) {
             this.hasWitheredCrop = true;
             System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to harvest it in time!\n", this.crop.getName(), this.tileNumber);
         }
-        else if(daysToHarvest == 0) {
+        else if(daysToHarvest == 1) {
             if(timesWatered < crop.getWaterNeeds() || timesFertilized < crop.getFertilizerNeeds()) {
                 System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to meet its needs in time!\n", this.crop.getName(), this.tileNumber);
                 this.hasWitheredCrop = true;
             }
         }
+        this.daysToHarvest--;
     }
 
     /**
@@ -132,7 +132,7 @@ public class Tile {
     }
     
     /**
-     * This method simulates shoveling the tile which clears the tile of any live or withered crops.
+     * This method simulates shoveling the tile which removes the withered crop in the case that there is one.
      * 
      * @return  true if using the shovel is successful, false if not
      */

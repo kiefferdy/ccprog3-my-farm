@@ -40,7 +40,7 @@ public class Model {
 
     public void createFarmer(String name) {
         this.farm = new MyFarm();
-        this.user = new Farmer(name, farmer, farm);
+        this.user = new Farmer(name, this.getRankList().get(0), farm);
     }
 
     public Farmer getFarmer() {
@@ -54,5 +54,8 @@ public class Model {
     public ArrayList<Crop> getCropList() {
         return this.cropList;
     }
-}
 
+    public ArrayList<Rank> getRankList() {
+        return this.rankList;
+    }
+}

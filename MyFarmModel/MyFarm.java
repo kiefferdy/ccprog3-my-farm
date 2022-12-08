@@ -1,5 +1,7 @@
 package MyFarmModel;
 
+import java.util.Random;
+
 /**
  * This class represents the entire farm a player owns.
  */
@@ -139,5 +141,21 @@ public class MyFarm {
             }
         }
         this.day++;
+    }
+
+    public boolean storm() {
+        Random rng = new Random();
+        int n;
+        boolean result = false;
+
+        n = rng.nextInt(50) + 1;
+
+        if(n == 1) {
+            for(int i = 0; i < tileTotal; i++) {
+                land[i].clearCrop();
+            }
+            result = true;
+        }
+        return result;
     }
 }

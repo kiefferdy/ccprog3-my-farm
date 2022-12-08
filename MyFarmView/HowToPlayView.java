@@ -59,7 +59,8 @@ public class HowToPlayView extends JFrame{
         description.setText(description.getText() + "Rank\n- Your Farmer Rank\n- Check the Rank List for more details\n\n");
         description.setText(description.getText() + "Withered Crop\n- A Crop that has not been taken care of or was not harvested on the day of harvest\n- Can only be removed using a shovel\n\n");
         description.setText(description.getText() + "Rock\n- Something that blocks you from doing things on a tile\n- Can only be removed using a pickaxe\n\n");
-        description.setText(description.getText() + "Water and Fertilizer Bonus Limit Increase\n- When you \"over-water\" or \"over-fertilize\" a seed, you can earn more Objectcoins");
+        description.setText(description.getText() + "Water and Fertilizer Bonus Limit Increase\n- When you \"over-water\" or \"over-fertilize\" a seed, you can earn more Objectcoins when you successfully harvest the crop\n\n");
+        description.setText(description.getText() + "Storm\nThe weather's good most of the time in the farm, but there's a 2% chance that a Storm can happen every time you sleep, washing ALL crops away (yes, even withered crops). This can either be a tragedy, or a blessing...");
         description.setCaretPosition(0);
 
         JScrollPane scroll = new JScrollPane(description, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

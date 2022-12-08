@@ -525,6 +525,10 @@ public class MainView {
         return this.displayRanks;
     }
 
+    public JButton getRankUpButton() {
+        return this.registerRank;
+    }
+
     public SystemLogsView getSystemLogs() {
         return this.systemLogs;
     }

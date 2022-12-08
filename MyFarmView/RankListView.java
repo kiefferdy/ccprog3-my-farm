@@ -43,8 +43,8 @@ public class RankListView extends JFrame{
 
         description.setText("Ranks are beneficial for a farmer's growth, as they give you bonuses in the long run.\n");
         description.setText(description.getText() + "You gain ranks by registering for them using the \"RANK UP!\" button.\n\n");
-        description.setText(description.getText() + "If you reached the requirements for a rank, you can pay a fee to increase your rank.\n\n");
-        description.setText(description.getText() + "You starts as rank \"Farmer\", which does not give any bonuses. \n");
+        description.setText(description.getText() + "Pressing the button will immediately rank you up IF you meet the required level and have enough Objectcoins to pay for the fee.\n\n");
+        description.setText(description.getText() + "You start as rank \"Farmer\", which does not give any bonuses. \n");
         description.setText(description.getText() + "However, once you increase your rank, you get various bonuses, which will be listed down below.\n\n");
         description.setText(description.getText() + "Rank Farmer\n- No Bonuses\n- Your Starting Rank\n\n");
         description.setText(description.getText() + "Rank Registered Farmer\n- Level Requirement: 5\n- Bonus Earnings Per Produce: +1\n- Seed Cost Reduction: -1\n- Registration Fee: 200 Objectcoins\n\n");
