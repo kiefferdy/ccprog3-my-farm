@@ -225,15 +225,12 @@ public class Tile {
      */
     public int harvestCrop() {
         if(this.crop == null) {
-            System.out.println("You cannot harvest a non-existent crop!");
             return -1;
         }
         if(this.hasWitheredCrop) {
-            System.out.println("You cannot harvest a withered crop!");
             return -1;
         }
         if(this.daysToHarvest > 0) {
-            System.out.printf("You need to wait %d more day(s) to harvest this crop.\n", this.daysToHarvest);
             return -1;
         }
         

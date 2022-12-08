@@ -194,8 +194,8 @@ public class Farmer {
      * @param xPos  is the row position of the tile where harvesting will occur
      * @param yPos  is the column position of the tile where harvesting will occur
      */
-    public boolean harvest(int tileNumber) {
-        boolean result = false;
+    public String harvest(int tileNumber) {
+        String display = "";
         int produce = myFarm.getTile(tileNumber).harvestCrop();
         if(produce != -1) {
             int harvestTotal = produce * (myFarm.getTile(tileNumber).getCrop().getBaseHarvestPrice() + this.rank.getBonusEarnings());
@@ -209,11 +209,21 @@ public class Farmer {
 
             this.objectcoins += finalHarvestPrice;
             this.xp += myFarm.getTile(tileNumber).getCrop().getExpYield();
-            System.out.printf("Success! Your crop produced %d products. You earned %f Objectcoins and gained %f experience.\n", produce, finalHarvestPrice, myFarm.getTile(tileNumber).getCrop().getExpYield());
+            display = "Success! Your crop produced " + produce +" products. You earned " + finalHarvestPrice + " Objectcoins and gained " + myFarm.getTile(tileNumber).getCrop().getExpYield() + " experience.";
             myFarm.getTile(tileNumber).clearCrop();
-            result = true;
         }
-        return result;
+        else {
+            if(myFarm.getTile(tileNumber).getCrop() == null) {
+                display = "You cannot harvest a non-existent crop!";
+            }
+            else if(myFarm.getTile(tileNumber).getHasWitheredCrop()) {
+                display = "You cannot harvest a withered crop!";
+            }
+            else if(myFarm.getTile(tileNumber).getDaysToHarvest() > 0) {
+                display = "You need to wait " + myFarm.getTile(tileNumber).getDaysToHarvest() + " more day(s) to harvest this crop.";
+            }
+        }
+        return display;
     }
 
     /**

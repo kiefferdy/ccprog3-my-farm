@@ -564,5 +564,17 @@ public class MainView {
     public JFrame getMainFrame() {
         return this.main;
     }
+
+    public void setCertainButtonsClickability(boolean text) {
+        this.howToPlay.setEnabled(text);
+        this.displayFarmStats.setEnabled(text);
+        this.displayRanks.setEnabled(text);
+        this.registerRank.setEnabled(text);
+        this.sleep.setEnabled(text);
+        this.endGame.setEnabled(text);
+        for(int i = 0; i < 50; i++) {
+            this.tiles[i].setEnabled(text);
+        }
+    }
 }
 

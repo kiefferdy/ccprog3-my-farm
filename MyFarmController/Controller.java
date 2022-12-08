@@ -294,15 +294,19 @@ public class Controller {
         });
 
         this.view.getSleepButton().addActionListener(a->{
-            this.model.getMyFarm().nextDay();
-            this.view.getSystemLogs().clearLogs();
-            this.view.getSystemLogs().getLogs().setText("You take a good rest in your shed.\nCurrent Day: " + this.model.getMyFarm().getDay());
-
-            boolean result = this.model.getMyFarm().storm();
-            if(result) {
-                this.view.getSystemLogs().getLogs().setText(this.view.getSystemLogs().getLogs().getText() + "\nA STORM BREWED WHILE YOU WERE SLEEPING! ALL CROPS HAVE WASHED OUT OF THE FARM!");
+            if(this.model.getFarmer().checkGameOver()) {
+                endgame();
             }
-
+            else {
+                this.model.getMyFarm().nextDay();
+                this.view.getSystemLogs().clearLogs();
+                this.view.getSystemLogs().getLogs().setText("You take a good rest in your shed.\nCurrent Day: " + this.model.getMyFarm().getDay());
+    
+                boolean result = this.model.getMyFarm().storm();
+                if(result) {
+                    this.view.getSystemLogs().getLogs().setText(this.view.getSystemLogs().getLogs().getText() + "\nA STORM BREWED WHILE YOU WERE SLEEPING! ALL CROPS HAVE WASHED OUT OF THE FARM!");
+                }
+            }
             this.view.setTileNameVisibility(false);
             this.view.setTileStatusVisibility(false);
             this.view.setToolsVisibility(false);
@@ -320,12 +324,8 @@ public class Controller {
         });
 
         this.view.getTileStatus().getHarvestButton().addActionListener(a->{
-            boolean result = this.model.getFarmer().harvest(tile.getTileNumber());
             this.view.getSystemLogs().clearLogs();
-            if(result) {
-                this.view.getSystemLogs().getLogs().setText("Success! Your crop produced %d products. You earned %f Objectcoins and gained %f experience.");
-            }
-            
+            this.view.getSystemLogs().getLogs().setText(this.model.getFarmer().harvest(tile.getTileNumber()));
             this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins());
             this.view.setXPText("XP: " + this.model.getFarmer().getXP());
             this.view.setLevelText("Level: " + this.model.getFarmer().getLevel());
@@ -394,19 +394,17 @@ public class Controller {
         });
 
         this.view.getNewGameButton().addActionListener(a->{
-            //view.getMainFrame().dispose();
-            //username = new Username();
-            //new MainView();
-            //model = new Model();
+            view.getMainFrame().dispose();
+            username = new Username();
+            view = new MainView();
+            model = new Model();
+
+            setUsername();
+            initializeListeners();
         });
 
         this.view.getEndGameButton().addActionListener(a->{
-            EndgameStatsView endgame = new EndgameStatsView();
-
-            endgame.getDescription().setText(this.model.getFarmer().displayStats());
-            endgame.getDescription().setText(endgame.getDescription().getText() + this.model.getMyFarm().displayOverview());
-
-            
+            endgame();
         });
     }
 
@@ -436,5 +434,12 @@ public class Controller {
 
         this.view.setTileNameVisibility(true);
         this.view.setTileStatusVisibility(true);
+    }
+
+    public void endgame() {
+        EndgameStatsView endgame = new EndgameStatsView();
+        endgame.getDescription().setText(this.model.getFarmer().displayStats());
+        endgame.getDescription().setText(endgame.getDescription().getText() + this.model.getMyFarm().displayOverview());
+        this.view.setCertainButtonsClickability(false);
     }
 }
