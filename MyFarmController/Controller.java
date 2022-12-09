@@ -38,7 +38,12 @@ public class Controller {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     var l = (JButton) e.getSource();
-                    tileClicked(Integer.parseInt(l.getName()));
+                    if(!l.isEnabled()) {
+                        return;
+                    }
+                    else {
+                        tileClicked(Integer.parseInt(l.getName()));
+                    }
                 }
             });
         }

@@ -29,12 +29,13 @@ public class MainView {
     private SystemLogsView systemLogs;                                              // system logs                            
     
     public MainView() {
-        this.main = new JFrame("Farming Simulator Rip-Off"); // main GUI
+        // main GUI
+        this.main = new JFrame("Farming Simulator Rip-Off");
+        this.main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        this.main.setLayout(new BorderLayout(15, 15)); 
+        this.main.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         
-        this.main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // when program exits, GUI closes
-        this.main.setLayout(new BorderLayout(15, 15)); // setting layout to BorderLayout so that components are easier to access
-        this.main.setExtendedState(JFrame.MAXIMIZED_BOTH); // "fullscreen"
-        
+        // ------------------------------- STATS PANEL --------------------------- //
         // name of farmer
         this.name = new JLabel(); 
         this.name.setFont(new Font("Cambria", Font.PLAIN, 14));
@@ -55,24 +56,33 @@ public class MainView {
         this.level = new JLabel();
         this.level.setFont(new Font("Cambria", Font.PLAIN, 14));
         
-        this.upperPanel = new JPanel(); // new panel for the upper part of the GUI
-        this.upperPanel.setLayout(new BorderLayout(5, 5)); // setting layout of panel
-        this.upperPanel.setPreferredSize(new Dimension(100, 100)); // preferred size of the panel
+        // new panel for the upper part of the GUI
+        this.upperPanel = new JPanel(); 
+        this.upperPanel.setLayout(new BorderLayout(5, 5)); 
+        this.upperPanel.setPreferredSize(new Dimension(100, 100)); 
 
+        // Sets the specifications of the statsPanel
+        // Statspanel is where the player can see their stats
         this.statsPanel = new JPanel();
         this.statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.PAGE_AXIS));
 
-        this.statsPanel.add(this.name); // adding JLabel name
-        this.statsPanel.add(this.coins); // adding JLabel coins
-        this.statsPanel.add(this.xp);  // adding JLabel xp
-        this.statsPanel.add(this.rank); // adding JLabel rank
-        this.statsPanel.add(this.level); // adding JLabel level
+        // adding name, coins, xp, rank, and level to the statsPanel
+        this.statsPanel.add(this.name); 
+        this.statsPanel.add(this.coins); 
+        this.statsPanel.add(this.xp);  
+        this.statsPanel.add(this.rank); 
+        this.statsPanel.add(this.level); 
+        // ------------------------------- END OF STATS PANEL--------------------------- //
         
-        this.farmland = new JPanel(); // farmland panel
+        // ------------------------------- FARMLAND PANEL --------------------------- //
+        // Sets the specifications of the Farmland (center) panel
+        // Farmland is where the tiles will be placed
+        this.farmland = new JPanel(); 
         this.farmland.setPreferredSize(new Dimension(700, 700)); // size of panel
         this.farmland.setLayout(new GridLayout(10, 5, 10, 10));
         this.farmland.setBackground(Color.LIGHT_GRAY);
 
+        // Sets the specifications of the tiles in the farm
         this.tiles = new JButton[50];
         for(int i = 0; i < 50; i++) {
             this.tiles[i] = new JButton();
@@ -85,7 +95,11 @@ public class MainView {
             this.tiles[i].setPreferredSize(new Dimension(50, 50));
             this.farmland.add(this.tiles[i]);
         }
+        // ------------------------------- END OF FARMLAND PANEL --------------------------- //
 
+        // ------------------------------- OPTIONS PANEL --------------------------- //
+        // Sets the specifications for the optionsPanel
+        // OptionsPanel is where options like "Rank Up", "How to Play", etc. will be placed
         this.optionsPanel = new JPanel();
         this.optionsPanel.setLayout(new FlowLayout());
 
@@ -146,18 +160,22 @@ public class MainView {
         this.optionsPanel.add(this.registerRank);
         this.optionsPanel.add(this.sleep);
         this.optionsPanel.add(this.endGame);
+        // ------------------------------- END OF OPTIONS PANEL --------------------------- //
 
-        // ------------------------------- TOOLS ----------------------------------- //
+        // ------------------------------- TOOLS  ----------------------------------- //
+        // Sets the specifications of the for the Right Panel
+        // The Right Panel is where the seed and tool options will be displayed
         this.rightPanel = new JPanel();
         this.rightPanel.setPreferredSize(new Dimension(150, 600));
         this.rightPanel.setLayout(new FlowLayout());
 
+        // Title text for the tools
         this.toolText = new JLabel();
         this.toolText.setText("TOOLS");
         this.toolText.setHorizontalTextPosition(JLabel.CENTER);
         this.toolText.setFont(new Font("Cambria", Font.BOLD, 30));
 
-        // Plow
+        // Plow Button
         this.plow = new JButton();
         this.plow.setText("Plow");
         this.plow.setPreferredSize(new Dimension(65, 60));
@@ -168,7 +186,7 @@ public class MainView {
         this.plow.setBorder(BorderFactory.createEtchedBorder());
         this.plow.setIcon(new ImageIcon("Icons/Plow.png"));
 
-        // Watering Can
+        // Watering Can Button
         this.wateringCan = new JButton();
         this.wateringCan.setText("Watering Can");
         this.wateringCan.setPreferredSize(new Dimension(135, 60));
@@ -179,7 +197,7 @@ public class MainView {
         this.wateringCan.setBorder(BorderFactory.createEtchedBorder());
         this.wateringCan.setIcon(new ImageIcon("Icons/WateringCan.png"));
         
-        // Fertilizer
+        // Fertilizer Button
         this.fertilizer = new JButton();
         this.fertilizer.setText("Fertilizer");
         this.fertilizer.setPreferredSize(new Dimension(65, 60));
@@ -190,7 +208,7 @@ public class MainView {
         this.fertilizer.setBorder(BorderFactory.createEtchedBorder());
         this.fertilizer.setIcon(new ImageIcon("Icons/Fertilizer.png"));
 
-        // Pickaxe
+        // Pickaxe Button
         this.pickaxe = new JButton();
         this.pickaxe.setText("Pickaxe");
         this.pickaxe.setPreferredSize(new Dimension(65, 60));
@@ -201,7 +219,7 @@ public class MainView {
         this.pickaxe.setBorder(BorderFactory.createEtchedBorder());
         this.pickaxe.setIcon(new ImageIcon("Icons/Pickaxe.png"));
 
-        // Shovel
+        // Shovel Button
         this.shovel = new JButton();
         this.shovel.setText("Shovel");
         this.shovel.setPreferredSize(new Dimension(65, 60));
@@ -212,6 +230,7 @@ public class MainView {
         this.shovel.setBorder(BorderFactory.createEtchedBorder());
         this.shovel.setIcon(new ImageIcon("Icons/Shovel.png"));
 
+        // Tool Prices and Descriptions Button
         this.toolPrices = new JButton();
         this.toolPrices.setText("Tool Price List");
         this.toolPrices.setPreferredSize(new Dimension(135, 60));
@@ -222,13 +241,13 @@ public class MainView {
         // ------------------------------- END OF TOOLS ----------------------------------- //
 
         // ------------------------------- SEEDS ----------------------------------- //
-        // Label for Seeds
+        // Title Text for Seeds
         this.seedText = new JLabel();
         this.seedText.setText("SEEDS");
         this.seedText.setHorizontalTextPosition(JLabel.CENTER);
         this.seedText.setFont(new Font("Cambria", Font.BOLD, 30));
 
-        // Turnip
+        // Turnip Button
         this.turnip = new JButton();
         this.turnip.setText("Turnip");
         this.turnip.setPreferredSize(new Dimension(65, 60));
@@ -239,7 +258,7 @@ public class MainView {
         this.turnip.setBorder(BorderFactory.createEtchedBorder());
         this.turnip.setIcon(new ImageIcon("Icons/Turnip.png"));
 
-        // Carrot
+        // Carrot Button
         this.carrot = new JButton();
         this.carrot.setText("Carrot");
         this.carrot.setPreferredSize(new Dimension(65, 60));
@@ -250,7 +269,7 @@ public class MainView {
         this.carrot.setBorder(BorderFactory.createEtchedBorder());
         this.carrot.setIcon(new ImageIcon("Icons/Carrot.png"));
 
-        // Potato
+        // Potato Button
         this.potato = new JButton();
         this.potato.setText("Potato");
         this.potato.setPreferredSize(new Dimension(65, 60));
@@ -261,7 +280,7 @@ public class MainView {
         this.potato.setBorder(BorderFactory.createEtchedBorder());
         this.potato.setIcon(new ImageIcon("Icons/Potato.png"));
 
-        // Rose
+        // Rose Button
         this.rose = new JButton();
         this.rose.setText("Rose");
         this.rose.setPreferredSize(new Dimension(65, 60));
@@ -272,7 +291,7 @@ public class MainView {
         this.rose.setBorder(BorderFactory.createEtchedBorder());
         this.rose.setIcon(new ImageIcon("Icons/Rose.png"));
 
-        // Tulip
+        // Tulip Button
         this.tulip = new JButton();
         this.tulip.setText("Tulip");
         this.tulip.setPreferredSize(new Dimension(65, 60));
@@ -283,7 +302,7 @@ public class MainView {
         this.tulip.setBorder(BorderFactory.createEtchedBorder());
         this.tulip.setIcon(new ImageIcon("Icons/Tulip.png"));
 
-        // Sunflower
+        // Sunflower Button
         this.sunflower = new JButton();
         this.sunflower.setText("Sunflower");
         this.sunflower.setPreferredSize(new Dimension(65, 60));
@@ -294,7 +313,7 @@ public class MainView {
         this.sunflower.setBorder(BorderFactory.createEtchedBorder());
         this.sunflower.setIcon(new ImageIcon("Icons/Sunflower.png"));
 
-        // Mango
+        // Mango Button
         this.mango = new JButton();
         this.mango.setText("Mango");
         this.mango.setPreferredSize(new Dimension(65, 60));
@@ -305,7 +324,7 @@ public class MainView {
         this.mango.setBorder(BorderFactory.createEtchedBorder());
         this.mango.setIcon(new ImageIcon("Icons/Mango.png"));
 
-        // Apple
+        // Apple Button
         this.apple = new JButton();
         this.apple.setText("Apple");
         this.apple.setPreferredSize(new Dimension(65, 60));
@@ -316,7 +335,7 @@ public class MainView {
         this.apple.setBorder(BorderFactory.createEtchedBorder());
         this.apple.setIcon(new ImageIcon("Icons/Apple.png"));
 
-        // Seed Price List
+        // Seed Price List Button
         this.seedPrices = new JButton();
         this.seedPrices.setText("Seed Price List");
         this.seedPrices.setPreferredSize(new Dimension(135, 60));
@@ -329,24 +348,34 @@ public class MainView {
 
         // ------------------------------- END OF SEEDS ----------------------------------- //
 
-        this.leftPanel = new JPanel(); // panel for tile descriptions
-        this.leftPanel.setPreferredSize(new Dimension(150, 600)); // panel dimensions
+        // ------------------------------- LEFT PANEL ------------------------------------- //
+        // Left Panel of the window
+        // This panel is where the status of a tile, the option to plant a seed, use a tool, and the
+        // option to harvest a crop will be placed
+        this.leftPanel = new JPanel(); 
+        this.leftPanel.setPreferredSize(new Dimension(150, 600)); 
         this.leftPanel.setLayout(new BorderLayout(10, 10));
 
+        // Tile Status 
         this.tileStatus = new TileStatusView();
         this.tileStatus.setVisible(false);
 
+        // Tile Name
         this.tileName = new JLabel("TILE ");
         this.tileName.setFont(new Font("Cambria", Font.BOLD, 30));
         this.tileName.setHorizontalAlignment(JLabel.CENTER);
         this.tileName.setVisible(false);
 
-        // Lower Part of the GUI
+        // ------------------------------- END OF LEFT PANEL ------------------------------------- //
+
+        // ------------------------------- LOWER PANEL ------------------------------------- //
+        // Lower Panel of the GUI
+        // This is where the system logs will be placed
         this.lowerPanel = new JPanel();
         this.lowerPanel.setPreferredSize(new Dimension(150, 100));
         this.lowerPanel.setLayout(new FlowLayout());
 
-        // System Logs to be placed at the bottom of the GUI
+        // System Logs
         this.systemLogs = new SystemLogsView();
         this.systemLogs.setPreferredSize(new Dimension(750, 90));
 
@@ -393,6 +422,7 @@ public class MainView {
         this.main.setVisible(false);
     }
 
+    // sets the visibility of the seed buttons
     public void setSeedsVisibility(boolean text) {
         this.turnip.setVisible(text);
         this.carrot.setVisible(text);
@@ -406,6 +436,7 @@ public class MainView {
         this.seedText.setVisible(text);
     }
 
+    // sets the visibility of the tools buttons
     public void setToolsVisibility(boolean text) {
         this.plow.setVisible(text);
         this.wateringCan.setVisible(text);
@@ -416,6 +447,7 @@ public class MainView {
         this.toolText.setVisible(text);
     }
 
+    // sets the visibility of the tile name
     public void setTileNameVisibility(boolean text) {
         this.tileName.setVisible(text);
     }
@@ -445,126 +477,157 @@ public class MainView {
         this.rank.setText(text);
     }
 
+    // sets the text of JLabel xp
     public void setXPText(String text) {
         this.xp.setText(text);
     }
 
+    // sets the text of JLabel level
     public void setLevelText(String text) {
         this.level.setText(text);
     }
 
+    // sets the text of the tile name
     public void setTileName(String text) {
         this.tileName.setText(text);
     }
 
+    // gets all the tiles in the farm
     public JButton[] getTiles() {
         return this.tiles;
     }
 
+    // gets the tile name of a specific tile
     public String getTileName(int i) {
         return this.tiles[i].getName();
     }
 
+    // gets the tile status portion of the GUI
     public TileStatusView getTileStatus() {
         return this.tileStatus;
     }
 
+    // gets the sleep button
     public JButton getSleepButton() {
         return this.sleep;
     }
 
+    // gets the seedPrice button
     public JButton getSeedPriceButton() {
         return this.seedPrices;
     }
 
+    // gets the turnip button
     public JButton getTurnipButton() {
         return this.turnip;
     }
 
+    // gets the carrot button
     public JButton getCarrotButton() {
         return this.carrot;
     }
 
+    // gets the potato button
     public JButton getPotatoButton() {
         return this.potato;
     }
 
+    // gets the tulip button
     public JButton getTulipButton() {
         return this.tulip;
     }
 
+    // gets the rose button
     public JButton getRoseButton() {
         return this.rose;
     }
 
+    // gets the sunflower button
     public JButton getSunflowerButton() {
         return this.sunflower;
     }
 
+    // gets the apple button
     public JButton getAppleButton() {
         return this.apple;
     }
 
+    // gets the mango button
     public JButton getMangoButton() {
         return this.mango;
     }
 
+    // gets the toolPrices button
     public JButton getToolPriceButton() {
         return this.toolPrices;
     }
 
+    // gets the plow button
     public JButton getPlowButton() {
         return this.plow;
     }
 
+    // gets the wateringCan button
     public JButton getWateringCanButton() {
         return this.wateringCan;
     }
 
+    // gets the ferilizer button
     public JButton getFertilizerButton() {
         return this.fertilizer;
     }
 
+    // gets the pickaxe button
     public JButton getPickaxeButton() {
         return this.pickaxe;
     }
 
+    // gets the shovel button
     public JButton getShovelButton() {
         return this.shovel;
     }
 
+    // gets the displayFarmStats button
     public JButton getDisplayFarmStatsButton() {
         return this.displayFarmStats;
     }
 
+    // gets the howToPlay button
     public JButton getHowToPlayButton() {
         return this.howToPlay;
     }
 
+    // gets the rankList button
     public JButton getRankListButton() {
         return this.displayRanks;
     }
 
+    // gets the registerRank (rank up) button
     public JButton getRankUpButton() {
         return this.registerRank;
     }
 
+    // gets the newGame button
     public JButton getNewGameButton() {
         return this.newGame;
     }
 
+    // gets the endGame button
     public JButton getEndGameButton() {
         return this.endGame;
     }
 
+    // gets the systemLogs
     public SystemLogsView getSystemLogs() {
         return this.systemLogs;
     }
 
+    // gets the main frame
     public JFrame getMainFrame() {
         return this.main;
     }
 
+    // sets the clickability of certain buttons
     public void setCertainButtonsClickability(boolean text) {
         this.howToPlay.setEnabled(text);
         this.displayFarmStats.setEnabled(text);
@@ -577,10 +640,12 @@ public class MainView {
         }
     }
 
+    // enables a certain tile to be clickable
     public void enableTileButton(int tileNumber) {
         this.tiles[tileNumber].setEnabled(true);
     }
 
+    // disables a certain tile to be unclickable
     public void disableTileButton(int tileNumber) {
         this.tiles[tileNumber].setEnabled(false);
     }

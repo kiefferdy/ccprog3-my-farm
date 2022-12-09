@@ -9,9 +9,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+// Window that shows the list of tools with their price and description
 public class ToolPriceView extends JFrame {
 
     public ToolPriceView() {
+        // Sets specifications of the window
         this.setSize(new Dimension(500, 650));
         this.setLayout(new BorderLayout(5, 5));
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -19,25 +21,29 @@ public class ToolPriceView extends JFrame {
         this.setResizable(false);
         this.setTitle("Tool Prices and Description");
 
+        // Sets the specifications of the upper panel of the window
         JPanel upper = new JPanel();
         upper.setPreferredSize(new Dimension(50, 50));
 
+        // Sets the specifications of the lower panel of the window
         JPanel left = new JPanel();
         left.setPreferredSize(new Dimension(50, 50));
 
+        // Sets the specifications of the right panel of the window
         JPanel right = new JPanel();
         right.setPreferredSize(new Dimension(50, 50));
 
+        // Sets the specifications of the center panel of the window
         JPanel center = new JPanel();
         center.setSize(new Dimension(350, 550));
         
+        // Title text of the descriptions
         JLabel text = new JLabel();
         text.setText("Tool Prices and Descriptions");
         text.setFont(new Font("Cambria", Font.BOLD, 25));
         text.setHorizontalAlignment(JLabel.CENTER);
 
-        upper.add(text);
-
+        // All the tools' prices and descriptions to be displayed
         JTextPane description = new JTextPane();
         description.setPreferredSize(new Dimension(350, 475));
         description.setText("PLOW\n- Cost: FREE\n- Plows a tile\n- Can only be used if the tile is empty\n\n");
@@ -48,8 +54,11 @@ public class ToolPriceView extends JFrame {
         description.setFont(new Font("Cambria", Font.PLAIN, 14));
         description.setEditable(false);
 
+        // adding "text" to the upper panel and "description" to the center
+        upper.add(text);
         center.add(description);
 
+        // adding all the panels to the main window
         this.add(upper, BorderLayout.NORTH);
         this.add(left, BorderLayout.WEST);
         this.add(center, BorderLayout.CENTER);

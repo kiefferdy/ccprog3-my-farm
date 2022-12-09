@@ -10,8 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+// Window where it gives a tutorial on how to play the game
 public class HowToPlayView extends JFrame{
     public HowToPlayView() {
+        // Sets the specifications of the window
         this.setSize(new Dimension(500, 650));
         this.setLayout(new BorderLayout(5, 5));
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -19,28 +21,35 @@ public class HowToPlayView extends JFrame{
         this.setResizable(false);
         this.setTitle("How To Play");
 
+        // Sets specifications of the upper panel of the window
         JPanel upper = new JPanel();
         upper.setPreferredSize(new Dimension(50, 50));
 
+        // Sets specifications of the left panel of the window
         JPanel left = new JPanel();
         left.setPreferredSize(new Dimension(50, 50));
 
+        // Sets specifications of the right panel of the window
         JPanel right = new JPanel();
         right.setPreferredSize(new Dimension(50, 50));
 
+        // Sets specifications of the center panel of the window
         JPanel center = new JPanel();
         center.setSize(new Dimension(350, 475));
         
+        // Title text of the tutorial
         JLabel text = new JLabel();
         text.setText("How To Play");
         text.setFont(new Font("Cambria", Font.BOLD, 25));
         text.setHorizontalAlignment(JLabel.CENTER);
 
+        // Textpane where the tutorial will be placed
         JTextPane description = new JTextPane();
         description.setPreferredSize(new Dimension(300, 475));
         description.setFont(new Font("Cambria", Font.PLAIN, 14));
         description.setEditable(false);
 
+        // Setting the tutorial text
         description.setText("Welcome to the Farming Simulator Rip-Off!\n\n");
         description.setText(description.getText() + "Your goal is to get rich by planting all sorts of crops.\n");
         description.setText(description.getText() + "Don't forget to water and harvest your crops to prevent them from withering!\n\n");
@@ -65,12 +74,15 @@ public class HowToPlayView extends JFrame{
         description.setText(description.getText() + "End Game\n- Ends the current game");
         description.setCaretPosition(0);
 
+        // Scroll pane to scroll up and down the descriptions
         JScrollPane scroll = new JScrollPane(description, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setPreferredSize(new Dimension(300, 475));
 
+        // adding title text to the upper panel; adding scroll pane to the center panel
         upper.add(text);
         center.add(scroll);
 
+        // adding panels to the main window
         this.add(upper, BorderLayout.NORTH);
         this.add(left, BorderLayout.WEST);
         this.add(center, BorderLayout.CENTER);
