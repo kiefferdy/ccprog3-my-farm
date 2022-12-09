@@ -33,9 +33,4 @@ public class SystemLogsView extends JPanel{
     public JTextPane getLogs() {
         return this.logs;
     }
-
-    // Clears the textpane
-    public void clearLogs() {
-        this.logs.setText("");
-    }
 }

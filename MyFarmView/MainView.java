@@ -650,18 +650,22 @@ public class MainView {
         this.tiles[tileNumber].setEnabled(false);
     }
 
+    // sets color of tile to its original color (no crop)
     public void setTileOriginal(int tileNumber) {
         this.tiles[tileNumber].setBackground(new Color(0xd4f5bf));
     }
 
+    // sets color of tile to green (crop is growing)
     public void setTileGreen(int tileNumber) {
         this.tiles[tileNumber].setBackground(new Color(0x74ed28));
     }
 
+    // sets color of tile to brown (withered crop present)
     public void setTileBrown(int tileNumber) {
         this.tiles[tileNumber].setBackground(new Color(0xb89c69));
     }
 
+    // sets color of tile to gold (crop is harvestable)
     public void setTileGold(int tileNumber) {
         this.tiles[tileNumber].setBackground(new Color(0xf7cf1b));
     }
