@@ -15,9 +15,9 @@ public class MyFarm {
      * This constructor declares the size of the player's farm and sets the day to 1.
      */
     public MyFarm() {
-        this.tileTotal = 50;
-        this.land = new Tile[tileTotal];
-        this.day = 1;
+        this.tileTotal = 50;                // number of tiles
+        this.land = new Tile[tileTotal];    // setting array of tiles in land
+        this.day = 1;                       // starting day
     }
     
     /**
@@ -45,8 +45,8 @@ public class MyFarm {
     /**
      * This method gets a specific tile in the farm.
      * 
-     * @param xPos  is the row position of the tile
-     * @param yPos  is the column position of the tile
+     * @param tileNumber is the current tile being accessed by the program
+     * 
      * @return      the tile the player chooses
      */
     public Tile getTile(int tileNumber) {
@@ -65,7 +65,7 @@ public class MyFarm {
     /**
      * This method gets the number of uncleared rocks currently present on the whole farm.
      * 
-     * @return  the number of uncleared rocks present on the farm 
+     * @return  the number of rocks present on the farm 
      */
     public int getRocks() {
         int count = 0;
@@ -144,14 +144,21 @@ public class MyFarm {
         this.day++;
     }
 
+    /**
+     * This method checks if the tile is eligible for a crop of the fruit tree type
+     * @param tileNumber is the current tile being accessed by the program
+     * @return true if all conditions are met for a tree to be planted on the tile, false otherwise
+     */
     public boolean checkTreeEligibility(int tileNumber) {
         tileNumber++;
+        // insert comment here
         if(tileNumber < 7 || tileNumber > 44) {
             return false;
         }
 
         int emptyCount = 0;
         ArrayList<Integer> adjacentTiles = new ArrayList<Integer>();
+        // insert comment here
         if(tileNumber % 5 == 2 || tileNumber % 5 == 3 || tileNumber % 5 == 4) {
             adjacentTiles.add(tileNumber - 6);
             adjacentTiles.add(tileNumber - 5);
@@ -162,6 +169,7 @@ public class MyFarm {
             adjacentTiles.add(tileNumber + 5);
             adjacentTiles.add(tileNumber + 6);
 
+            // insert comment here
             for (Integer i : adjacentTiles) {
                 if(!land[i - 1].isOccupied()) {
                     emptyCount++;
@@ -169,12 +177,17 @@ public class MyFarm {
             }
         }
 
+        // insert comment here
         if(emptyCount == 8) {
             return true;
         }
         return false;
     }
 
+    /**
+     * 
+     * @param tileNumber
+     */
     public void collateralize(int tileNumber) {
         tileNumber++;
 
@@ -193,6 +206,11 @@ public class MyFarm {
         }
     }
 
+    /**
+     * This method sets a chance of a storm that will happen overnight
+     * A storm wipes out all crops on the farm, including withered crops
+     * @return true if a storm will happen overnight, false otherwise
+     */
     public boolean storm() {
         Random rng = new Random();
         int n;
@@ -200,6 +218,7 @@ public class MyFarm {
 
         n = rng.nextInt(50) + 1;
 
+        // this executes if the player was lucky/unlucky enough to get the 2% chance of a storm happening overnight
         if(n == 1) {
             for(int i = 0; i < tileTotal; i++) {
                 land[i].clearCrop();

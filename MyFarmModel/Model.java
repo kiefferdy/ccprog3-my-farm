@@ -8,6 +8,9 @@ public class Model {
     private Farmer user;
     private MyFarm farm;
 
+    /**
+     * This constructor initializes all ranks and crops in the game
+     */
     public Model() {
         this.rankList = new ArrayList<Rank>();
         this.farmer = new Rank("Farmer", 0, 0, 0, 0, 0, 0);
@@ -38,23 +41,43 @@ public class Model {
         cropList.add(apple);
     }
 
+    /**
+     * This method creates a new farm and a new farmer 
+     * @param name is the name of the player
+     */
     public void createFarmer(String name) {
         this.farm = new MyFarm();
         this.user = new Farmer(name, this.getRankList().get(0), farm);
     }
 
+    /**
+     * This method gets the farmer/player
+     * @return the farmer/player
+     */
     public Farmer getFarmer() {
         return this.user;
     }
 
+    /**
+     * This method gets the farm
+     * @return the farm
+     */
     public MyFarm getMyFarm() {
         return this.farm;
     }
 
+    /**
+     * This method gets the list of crops
+     * @return the crop list
+     */
     public ArrayList<Crop> getCropList() {
         return this.cropList;
     }
 
+    /**
+     * This method gets the list of ranks
+     * @return the rank list
+     */
     public ArrayList<Rank> getRankList() {
         return this.rankList;
     }

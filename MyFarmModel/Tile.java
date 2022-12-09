@@ -156,7 +156,6 @@ public class Tile {
      * @return  true if using the shovel is successful, false if not
      */
     public boolean useShovel() {
-        System.out.println("Tile cleared!");
         this.hasWitheredCrop = false;
         this.clearCrop();
         return true;
