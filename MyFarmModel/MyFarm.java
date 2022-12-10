@@ -181,12 +181,12 @@ public class MyFarm {
 
                 if(land[i].getHasWitheredCrop()) {
                     if(land[i].getDaysToHarvest() == -1) {
-                        text = "\nOh no! Your crop on Tile " + (i + 1) + "has withered because you did not harvest it on time!";
+                        text = "\nOh no! Your crop on Tile " + (i + 1) + " has withered because you did not harvest it on time!";
                         land[i].removeCrop();
                     }
                     else if(land[i].getDaysToHarvest() == 0) {
                         if(land[i].getTimesWatered() < land[i].getCrop().getWaterNeeds() || land[i].getTimesFertilized() < land[i].getCrop().getFertilizerNeeds())
-                        text = "\nOh no! Your crop on Tile " + (i + 1) + "has withered because you did not take care of it properly!";
+                        text = "\nOh no! Your crop on Tile " + (i + 1) + " has withered because you did not take care of it properly!";
                         land[i].removeCrop();
                     }
                 }

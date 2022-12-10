@@ -449,12 +449,8 @@ public class Controller {
 
         // This adds an action listener to the "Sleep" button
         this.view.getSleepButton().addActionListener(a->{
-            // executes if player meets the requirements to immediately end the game
-            if(this.model.getFarmer().checkGameOver()) {
-                endGame();
-            }
             // executes if the game goes on
-            else {
+            if(!this.model.getFarmer().checkGameOver()) {
                 String text = this.model.getMyFarm().nextDay();   // advances to next day
                 this.view.getSystemLogs().getLogs().setText("You take a good rest in your shed.\nCurrent Day: " + this.model.getMyFarm().getDay());
                 this.view.getSystemLogs().getLogs().setText(this.view.getSystemLogs().getLogs().getText() + text);
@@ -478,6 +474,11 @@ public class Controller {
                     }
                 }
             }
+            // executes if player meets the requirements to immediately end the game
+            if(this.model.getFarmer().checkGameOver()) {
+                endGame();
+            }
+            
             // removes displays on the left and right panels
             this.view.setTileNameVisibility(false);         
             this.view.setTileStatusVisibility(false);

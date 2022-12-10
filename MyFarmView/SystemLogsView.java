@@ -15,7 +15,7 @@ public class SystemLogsView extends JPanel{
     public SystemLogsView() {
         // Sets specifications of the textpane where the dialogues will be placed
         this.logs = new JTextPane();
-        this.logs.setFont(new Font("Cambria", Font.PLAIN, 16));
+        this.logs.setFont(new Font("Cambria", Font.PLAIN, 13));
         this.logs.setEditable(false);
         this.logs.setPreferredSize(new Dimension(750, 75));
         this.logs.setAlignmentY(CENTER_ALIGNMENT);
