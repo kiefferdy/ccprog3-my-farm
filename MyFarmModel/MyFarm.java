@@ -97,7 +97,7 @@ public class MyFarm {
                 for(i = 0; i < this.tileTotal; i++) {
                     int roll = rand.nextInt(101);
                     // If the random integer generated roll is within the probability, a rock is set on the tile.
-                    if(roll <= probability) {
+                    if(roll <= probability && this.getRocks() < nRocks) {
                         land[i].setRock(true);
                     }
                 }

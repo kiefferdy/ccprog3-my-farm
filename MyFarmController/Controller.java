@@ -401,7 +401,7 @@ public class Controller {
             // executes if unsuccessful
             else {
                 // executes if player does not have enough objectcoins to use the tool
-                if(this.model.getFarmer().getObjectcoins() < 10) {
+                if(this.model.getFarmer().getObjectcoins() < 50) {
                     this.view.getSystemLogs().getLogs().setText("Insufficient funds!\n You need " + (50 - this.model.getFarmer().getObjectcoins()) + " more Objectcoins to use the pickaxe.\n");
                 }
                 // executes if there's no rock on the tile
@@ -412,6 +412,11 @@ public class Controller {
             this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins()); // sets updated objectcoins
             this.view.setXPText("XP: " + this.model.getFarmer().getXP());           // sets updated XP
             this.view.setLevelText("Level: " + this.model.getFarmer().getLevel());  // sets updated level
+
+            // checks if the player meets the game over conditions
+            if(this.model.getFarmer().checkGameOver()) {
+                endGame();
+            }
 
             this.view.setTileStatusVisibility(false);                           // not show tile status
             this.view.setTileNameVisibility(false);                             // not show tile name
@@ -442,6 +447,11 @@ public class Controller {
             this.view.setXPText("XP: " + this.model.getFarmer().getXP());           // sets updated XP
             this.view.setLevelText("Level: " + this.model.getFarmer().getLevel());  // sets updated level
 
+            // checks if the player meets the game over conditions
+            if(this.model.getFarmer().checkGameOver()) {
+                endGame();
+            }
+
             this.view.setTileStatusVisibility(false);                           // not show tile status
             this.view.setTileNameVisibility(false);                             // not show tile name
             this.view.setToolsVisibility(false);                                // not show tools options
@@ -449,7 +459,7 @@ public class Controller {
 
         // This adds an action listener to the "Sleep" button
         this.view.getSleepButton().addActionListener(a->{
-            // executes if the game goes on
+            // executes if the conditions for game over are not met yet
             if(!this.model.getFarmer().checkGameOver()) {
                 String text = this.model.getMyFarm().nextDay();   // advances to next day
                 this.view.getSystemLogs().getLogs().setText("You take a good rest in your shed.\nCurrent Day: " + this.model.getMyFarm().getDay());
@@ -474,11 +484,12 @@ public class Controller {
                     }
                 }
             }
-            // executes if player meets the requirements to immediately end the game
+
+            // checks if the player meets the game over conditions
             if(this.model.getFarmer().checkGameOver()) {
                 endGame();
             }
-            
+
             // removes displays on the left and right panels
             this.view.setTileNameVisibility(false);         
             this.view.setTileStatusVisibility(false);
