@@ -73,7 +73,7 @@ public class HowToPlayView extends JFrame{
         description.setText(description.getText() + "Storm\nThe weather's good most of the time in the farm, but there's a 2% chance that a Storm can happen every time you sleep, washing ALL crops away (yes, even withered crops). This can either be a tragedy, or a blessing...\n\n");
         description.setText(description.getText() + "New Game\n- Starts a new game\n- Can be clicked the game is over to start a new game\n\n");
         description.setText(description.getText() + "End Game\n- Ends the current game\n\n");
-        description.setText(description.getText() + "Tile Colors\n-1. Light Green \n- Tile is unoccupied\n2. Green\n- Tile has growing crop\n3. Gold\n- Crop is harvestable\n4. Brown\n- Tile has Withered Crop\n\n");
+        description.setText(description.getText() + "Tile Colors\n-1. Light Green \n- Tile is unoccupied\n2. Green\n- Tile has growing crop\n3. Gold\n- Crop is harvestable\n4. Brown\n- Tile has Withered Crop\n5. Grey\n- Tile has a rock\n\n");
         description.setText(description.getText() + "Game Over\n- happens if any of the conditions happen:\n1. The farm is completely filled with withered crops and rocks\n2. If there are no crops growing and you don't have enough objectcoins to plant a crop\n");
         description.setText(description.getText() + "NOTE: The game checks these conditions when you sleep. So, if the second condition happens to you, press SLEEP to end the game.");
         description.setCaretPosition(0);
