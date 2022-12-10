@@ -456,9 +456,10 @@ public class Controller {
             }
             // executes if the game goes on
             else {
-                this.model.getMyFarm().nextDay();   // advances to next day
+                String text = this.model.getMyFarm().nextDay();   // advances to next day
                 this.view.getSystemLogs().getLogs().setText("You take a good rest in your shed.\nCurrent Day: " + this.model.getMyFarm().getDay());
-    
+                this.view.getSystemLogs().getLogs().setText(this.view.getSystemLogs().getLogs().getText() + text);
+
                 boolean result = this.model.getMyFarm().storm();
                 // executes if a storm arrived 
                 if(result) {

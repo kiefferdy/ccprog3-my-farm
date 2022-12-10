@@ -72,11 +72,9 @@ public class Tile {
         this.daysToHarvest--;
         if(daysToHarvest == -1) {
             this.hasWitheredCrop = true;
-            System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to harvest it in time!\n", this.crop.getName(), this.tileNumber);
         }
         else if(daysToHarvest == 0) {
             if(timesWatered < crop.getWaterNeeds() || timesFertilized < crop.getFertilizerNeeds()) {
-                System.out.printf("\nALERT: Your %s crop on Tile %d has withered because you failed to meet its needs in time!\n", this.crop.getName(), this.tileNumber);
                 this.hasWitheredCrop = true;
             }
         }
@@ -264,6 +262,21 @@ public class Tile {
     public void clearCrop() {
         this.crop = null;
         this.hasWitheredCrop = false;
+        this.isPlowed = false;
+        this.timesWatered = 0;
+        this.timesFertilized = 0;
+        this.waterBonus = 0;
+        this.fertilizerBonus = 0;
+        this.waterNeeds = 0;
+        this.fertilizerNeeds = 0;
+        this.daysToHarvest = -1;
+    }
+
+    /**
+     * This method clears any crop details but retains the withered crop
+     */
+    public void removeCrop() {
+        this.crop = null;
         this.isPlowed = false;
         this.timesWatered = 0;
         this.timesFertilized = 0;

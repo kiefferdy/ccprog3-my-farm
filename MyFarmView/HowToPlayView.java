@@ -63,7 +63,8 @@ public class HowToPlayView extends JFrame{
         description.setText(description.getText() + "How to Plant a Seed\n");
         description.setText(description.getText() + "1.Plow the Tile\n2, Choose the Seed you want to plant\n3. If requirements are met (ex: enough money, enough space, etc), seed will be planted.\n\n");
         description.setText(description.getText() + "How to Harvest a Crop\n");
-        description.setText(description.getText() + "1. After Planting a seed, give the seed its water and fertilizer needs.\n2. Advance the day until the crop is harvestable.\n3. Press the harvest button to harvest the crop!\n\n");
+        description.setText(description.getText() + "1. After Planting a seed, give the seed its water and fertilizer needs.\n2. Advance the day until the crop is harvestable.\n3. Press the harvest button to harvest the crop!\n");
+        description.setText(description.getText() + "NOTE: YOU CAN ONLY HARVEST THE CROP ON THE DAY OF ITS HARVEST. IF NOT, THE CROP WITHERS\n\n");
         description.setText(description.getText() + "Sleep\n- Advances to the next day\n\n");
         description.setText(description.getText() + "Rank\n- Your Farmer Rank\n- Check the Rank List for more details\n\n");
         description.setText(description.getText() + "Withered Crop\n- A Crop that has not been taken care of or was not harvested on the day of harvest\n- Can only be removed using a shovel\n\n");
@@ -71,7 +72,8 @@ public class HowToPlayView extends JFrame{
         description.setText(description.getText() + "Water and Fertilizer Bonus Limit Increase\n- When you \"over-water\" or \"over-fertilize\" a seed, you can earn more Objectcoins when you successfully harvest the crop\n\n");
         description.setText(description.getText() + "Storm\nThe weather's good most of the time in the farm, but there's a 2% chance that a Storm can happen every time you sleep, washing ALL crops away (yes, even withered crops). This can either be a tragedy, or a blessing...\n\n");
         description.setText(description.getText() + "New Game\n- Starts a new game\n- Can be clicked the game is over to start a new game\n\n");
-        description.setText(description.getText() + "End Game\n- Ends the current game");
+        description.setText(description.getText() + "End Game\n- Ends the current game\n\n");
+        description.setText(description.getText() + "Tile Colors\n-1. Light Green \n- Tile is unoccupied\n2. Green\n- Tile has growing crop\n3. Gold\n- Crop is harvestable\n4. Brown\n- Tile has Withered Crop");
         description.setCaretPosition(0);
 
         // Scroll pane to scroll up and down the descriptions

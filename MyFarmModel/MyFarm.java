@@ -134,14 +134,28 @@ public class MyFarm {
     /**
      * This method increments the day and ages all crops in the farm.
      */
-    public void nextDay() {
+    public String nextDay() {
+        String text = "";
         int i;
         for(i = 0; i < this.tileTotal; i++) {
             if(land[i].getCrop() != null) {
                 land[i].ageCrop();
+
+                if(land[i].getHasWitheredCrop()) {
+                    if(land[i].getDaysToHarvest() == -1) {
+                        text = "\nOh no! Your crop on Tile " + (i + 1) + "has withered because you did not harvest it on time!";
+                        land[i].removeCrop();
+                    }
+                    else if(land[i].getDaysToHarvest() == 0) {
+                        if(land[i].getTimesWatered() < land[i].getCrop().getWaterNeeds() || land[i].getTimesFertilized() < land[i].getCrop().getFertilizerNeeds())
+                        text = "\nOh no! Your crop on Tile " + (i + 1) + "has withered because you did not take care of it properly!";
+                        land[i].removeCrop();
+                    }
+                }
             }
         }
         this.day++;
+        return text;
     }
 
     /**
