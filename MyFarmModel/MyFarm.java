@@ -47,7 +47,7 @@ public class MyFarm {
      * 
      * @param tileNumber is the current tile being accessed by the program
      * 
-     * @return      the tile the player chooses
+     * @return  the tile the player chooses
      */
     public Tile getTile(int tileNumber) {
         return land[tileNumber];
@@ -75,6 +75,41 @@ public class MyFarm {
             }
         }
         return count;
+    }
+
+    /**
+     * This method is responsible for setting the rocks on the farm according to the rocksConfig.txt config file.
+     * 
+     * @param randomizeScatter represents whether the rock scatter should be done automatically
+     * @param minRocks represents the minimum amount of rocks to be scattered automatically
+     * @param maxRocks represents the maximum amount of rocks to be scattered automatically
+     * @param arrConfig contains the array with the data indicating which tiles should contain a rock
+     */
+    public void setRocks(boolean randomizeScatter, int minRocks, int maxRocks, int[] arrConfig) {
+        Random rand = new Random();
+        int nRocks = rand.nextInt(maxRocks - minRocks + 1);
+        nRocks += minRocks;
+
+        // Algorithm for randomizing the rock scatter
+        int i, probability = nRocks / this.tileTotal;
+        if(randomizeScatter) {
+            while(this.getRocks() < nRocks) {
+                for(i = 0; i < this.tileTotal; i++) {
+                    int roll = rand.nextInt(101);
+                    if(roll <= probability) {
+                        land[i].setRock(true);
+                    }
+                }
+            }
+        }
+        // User setting of rock scatter
+        else {
+            for(i = 0; i < this.tileTotal; i++) {
+                if(arrConfig[i] == 1) {
+                    land[i].setRock(true);
+                }
+            }
+        }
     }
 
     /**
@@ -201,28 +236,6 @@ public class MyFarm {
             return true;
         }
         return false;
-    }
-
-    /**
-     * INSERT JAVADOC COMMENT HERE
-     * @param tileNumber
-     */
-    public void collateralize(int tileNumber) {
-        tileNumber++;
-
-        ArrayList<Integer> adjacentTiles = new ArrayList<Integer>();
-        adjacentTiles.add(tileNumber - 6);
-        adjacentTiles.add(tileNumber - 5);
-        adjacentTiles.add(tileNumber - 4);
-        adjacentTiles.add(tileNumber - 1);
-        adjacentTiles.add(tileNumber + 1);
-        adjacentTiles.add(tileNumber + 4);
-        adjacentTiles.add(tileNumber + 5);
-        adjacentTiles.add(tileNumber + 6);
-
-        for (Integer i : adjacentTiles) {
-            land[i - 1].setCollateral();
-        }
     }
 
     /**

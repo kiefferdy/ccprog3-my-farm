@@ -8,7 +8,6 @@ import java.util.Random;
 public class Tile {
     private int tileNumber;
     private boolean isPlowed;
-    private boolean isCollateral;
     private boolean hasRock;
     private Crop crop;
     private int daysToHarvest;
@@ -28,7 +27,6 @@ public class Tile {
     public Tile(int tileNumber) {
         this.tileNumber = tileNumber;
         this.isPlowed = false;
-        this.isCollateral = false;
         this.hasRock = false;
         this.daysToHarvest = -1;
     }
@@ -38,15 +36,14 @@ public class Tile {
      */
     public String displayStatus() {
         return  "Has Been Plowed: " + (this.isPlowed ? "Yes" : "No") +
-                "\nIs Occupied: " + (this.isOccupied() ? "Yes" : "No") +
                 "\nContains Rock: " + (this.hasRock ? "Yes" : "No") + 
                 "\nContains Withered Crop: " + (this.hasWitheredCrop ? "Yes" : "No") +
                 "\nCrop Planted: " + (this.crop != null ? this.crop.getName() : "N/A") + 
-                "\nTime Until Harvest: " + (this.crop != null && this.daysToHarvest >= 0 ? Integer.toString(this.daysToHarvest) + " day(s)" : "N/A") +
-                "\nRemaining Water Needs: " + (this.crop != null ? Integer.toString(this.waterNeeds) : "N/A") +
-                "\nRemaining Fertilizer Needs: " + (this.crop != null ? Integer.toString(this.fertilizerNeeds) : "N/A") +
-                "\nWater Bonus: " + (this.crop != null ? Integer.toString(this.waterBonus) : "N/A") +
-                "\nFertilizer Bonus: " + (this.crop != null ? Integer.toString(this.fertilizerBonus) : "N/A");
+                "\nTime Until Harvest: " + (this.crop != null && !this.hasWitheredCrop && this.daysToHarvest >= 0 ? Integer.toString(this.daysToHarvest) + " day(s)" : "N/A") +
+                "\nRemaining Water Needs: " + (this.crop != null && !this.hasWitheredCrop ? Integer.toString(this.waterNeeds) : "N/A") +
+                "\nRemaining Fertilizer Needs: " + (this.crop != null && !this.hasWitheredCrop ? Integer.toString(this.fertilizerNeeds) : "N/A") +
+                "\nWater Bonus: " + (this.crop != null && !this.hasWitheredCrop ? Integer.toString(this.waterBonus) : "N/A") +
+                "\nFertilizer Bonus: " + (this.crop != null && !this.hasWitheredCrop ? Integer.toString(this.fertilizerBonus) : "N/A");
     }
     
     /**
@@ -57,7 +54,7 @@ public class Tile {
      */
     public void plantCrop(Crop crop) {
         this.crop = crop;
-        this.daysToHarvest = crop.getHarvestTime();
+        this.daysToHarvest = this.crop.getHarvestTime();
         this.timesWatered = 0;
         this.timesFertilized = 0;
         this.waterNeeds = this.crop.getWaterNeeds();
@@ -103,7 +100,7 @@ public class Tile {
      * @return  true if there is an entity on the crop, false if none
      */
     public boolean isOccupied() {
-        if(this.hasRock || this.hasWitheredCrop || this.isCollateral || this.crop != null) {
+        if(this.hasRock || this.hasWitheredCrop || this.crop != null) {
             return true;
         }
         return false;
@@ -147,21 +144,6 @@ public class Tile {
         }
         this.isPlowed = true;
         return true;
-    }
-
-    /**
-     * INSERT JAVADOC COMMENT HERE
-     * @return
-     */
-    public boolean isCollateral() {
-        return this.isCollateral;
-    }
-
-    /**
-     * INSERT JAVADOC COMMENT HERE
-     */
-    public void setCollateral() {
-        this.isCollateral = true;
     }
     
     /**
@@ -294,7 +276,6 @@ public class Tile {
      * This method clears any crop details but retains a withered crop if there is one present
      */
     public void removeCrop() {
-        this.crop = null;
         this.isPlowed = false;
         this.timesWatered = 0;
         this.timesFertilized = 0;

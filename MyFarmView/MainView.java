@@ -669,4 +669,9 @@ public class MainView {
     public void setTileGold(int tileNumber) {
         this.tiles[tileNumber].setBackground(new Color(0xf7cf1b));
     }
+
+    // sets color of tile to gray (tile contains a rock)
+    public void setTileGray(int tileNumber) {
+        this.tiles[tileNumber].setBackground(new Color(0xd9d4c5));
+    }
 }

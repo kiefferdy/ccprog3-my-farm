@@ -1,0 +1,54 @@
+<Randomize scatter automatically? true/false>
+<Use recommended values (10-30 rocks)? true/false>
+<Minimum number of rocks to be scattered: Positive integer>
+<Maximum number of rocks to be scattered: Positive integer>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>
+<Manual setting of rocks on the tile: 1/0>

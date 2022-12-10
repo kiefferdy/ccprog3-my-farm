@@ -1,4 +1,7 @@
 package MyFarmModel;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Model {
@@ -45,6 +48,50 @@ public class Model {
         cropList.add(sunflower);
         cropList.add(mango);
         cropList.add(apple);
+    }
+
+    /**
+     * This method reads the rock configuration file and passes the data read to setRocks() in the MyFarm class
+     */
+    public void initializeRocks() {
+        boolean randomizeScatter = true;
+        boolean useRecommendedValues = true;
+        int i, minRocks = 10, maxRocks = 30;
+        int arr[] = new int[farm.getTileTotal()];
+
+        try {
+            Scanner fileReader = new Scanner(new File("rocksConfig.txt"));
+
+            // Reads the boolean values indicating how the scatter should be done
+            randomizeScatter = fileReader.nextBoolean();
+            useRecommendedValues = fileReader.nextBoolean();
+
+            // Reads the min and max values the user has inputted if useRecommendedValues is set to false
+            if(randomizeScatter && !useRecommendedValues) {
+                minRocks = fileReader.nextInt();
+                maxRocks = fileReader.nextInt();
+            }
+            else {
+                fileReader.nextInt();
+                fileReader.nextInt();
+            }
+
+            // In the case that the user decides to manually set exactly which tiles have rocks in them
+            if(!randomizeScatter) {
+                for(i = 0; i < farm.getTileTotal(); i++) {
+                    arr[i] = fileReader.nextInt();
+                }
+            }
+
+            fileReader.close();
+        }
+        // Displays an error when the file cannot be read
+        catch(FileNotFoundException e) {
+            System.out.println("An error occurred with reading the rocksConfig.txt file!");
+            e.printStackTrace();
+        }
+
+        this.farm.setRocks(randomizeScatter, minRocks, maxRocks, arr);
     }
 
     /**

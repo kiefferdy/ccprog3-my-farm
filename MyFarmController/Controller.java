@@ -243,7 +243,7 @@ public class Controller {
         });
 
         // This adds an action listener to the "Mango" button
-        this.view.getMangoButton().addActionListener(a->{
+        this.view.getMangoButton().addActionListener(b->{
             // @param result stores if planting the crop is successful or not
             boolean result = this.model.getFarmer().plant(this.model.getCropList().get(6), tile.getTileNumber());
             // this executes if successful
@@ -272,11 +272,10 @@ public class Controller {
             this.view.setSeedsVisibility(false);        // not show seeds options
             this.view.setTileNameVisibility(false);     // not show tile name
             this.view.setTileStatusVisibility(false);   // not show tile status
-            this.updateCollateral();
         });
 
         // This adds an action listener to the "Mango" button
-        this.view.getAppleButton().addActionListener(a->{
+        this.view.getAppleButton().addActionListener(b->{
             // @param result stores if planting the crop is successful or not
             boolean result = this.model.getFarmer().plant(this.model.getCropList().get(7), tile.getTileNumber());
             // this executes if successful
@@ -305,7 +304,6 @@ public class Controller {
             this.view.setSeedsVisibility(false);        // not show seeds options
             this.view.setTileNameVisibility(false);     // not show tile name
             this.view.setTileStatusVisibility(false);   // not show tile status
-            this.updateCollateral();
         });
 
         // This adds an action listener to the "Tool Price" button
@@ -398,6 +396,7 @@ public class Controller {
             // executes if successful
             if(result) {
                 this.view.getSystemLogs().getLogs().setText("You removed the rock on Tile " + (tile.getTileNumber() + 1) + "!\nYou spent 50 Objectcoins and gained 15 experience.");
+                this.view.setTileOriginal(tile.getTileNumber());
             }
             // executes if unsuccessful
             else {
@@ -635,6 +634,10 @@ public class Controller {
 
             this.model.createFarmer(name);                  // creates a new farmer
             this.model.getMyFarm().createTiles();           // creates the tiles for the farm
+
+            // Reads the rocks configuration file and sets rocks accordingly
+            this.model.initializeRocks();
+            this.updateRocks();
     
             this.view.setNameText("Name: " + this.name);    // sets the name of the player
             this.view.setCoinsText("Objectcoins: " + this.model.getFarmer().getObjectcoins());   // sets the starting objectcoins of the player
@@ -642,6 +645,16 @@ public class Controller {
             this.view.setXPText("XP: " + this.model.getFarmer().getXP());                       // sets the starting xp of the player
             this.view.setLevelText("Level: " + this.model.getFarmer().getLevel());              // sets the starting level of the player
         });
+    }
+
+    // This changes the color of the tiles with rocks to gray.
+    public void updateRocks() {
+        int i;
+        for(i = 0; i < this.model.getMyFarm().getTileTotal(); i++) {
+            if(this.model.getMyFarm().getTile(i).hasRock()) {
+                this.view.setTileGray(i);
+            }
+        }
     }
 
     // This gets the tile clicked and sets it to tile
@@ -672,18 +685,5 @@ public class Controller {
 
         // sets game over text in system logs
         this.view.getSystemLogs().getLogs().setText("GAME OVER! Thanks for playing!\nIf you want to try again, click the \"New Game\" button!");
-    }
-
-    // insert comment here
-    public void updateCollateral() {
-        int i;
-        for(i = 0; i < 50; i++) {
-            if(this.model.getMyFarm().getTile(i).isCollateral()) {
-                this.view.disableTileButton(i);
-            }
-            else {
-                this.view.enableTileButton(i);
-            }
-        }
     }
 }

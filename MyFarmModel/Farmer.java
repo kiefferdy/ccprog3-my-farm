@@ -217,15 +217,10 @@ public class Farmer {
                     return false;
                 }
             }
-            // this executes if there is already a seed on the tile or the tile is not plowed
-            if(myFarm.getTile(tileNumber).getCrop() != null || !myFarm.getTile(tileNumber).isPlowed()) {
+            // this executes if the tile is already occupied or the tile has not yet been plowed
+            if(myFarm.getTile(tileNumber).isOccupied() || !myFarm.getTile(tileNumber).isPlowed()) {
                 return false;
             }
-        }
-
-        // this executes if the seed to be planted is a fruit tree
-        if(crop.getType().equals("Fruit tree")) {
-            myFarm.collateralize(tileNumber);
         }
 
         myFarm.getTile(tileNumber).plantCrop(crop);     // plants the crop
