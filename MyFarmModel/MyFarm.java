@@ -132,7 +132,10 @@ public class MyFarm {
     }
     
     /**
-     * This method increments the day and ages all crops in the farm.
+     * This method increments the day and ages all crops in the farm. 
+     * This method also checks if a crop on a tile has withered due to certain conditions
+     * 
+     * @return an empty string if no crop has withered, otherwise returns a string containing information about a withered crop
      */
     public String nextDay() {
         String text = "";
@@ -160,7 +163,9 @@ public class MyFarm {
 
     /**
      * This method checks if the tile is eligible for a crop of the fruit tree type
+     * 
      * @param tileNumber is the current tile being accessed by the program
+     * 
      * @return true if all conditions are met for a tree to be planted on the tile, false otherwise
      */
     public boolean checkTreeEligibility(int tileNumber) {
@@ -199,7 +204,7 @@ public class MyFarm {
     }
 
     /**
-     * 
+     * INSERT JAVADOC COMMENT HERE
      * @param tileNumber
      */
     public void collateralize(int tileNumber) {
@@ -222,7 +227,9 @@ public class MyFarm {
 
     /**
      * This method sets a chance of a storm that will happen overnight
+     * 
      * A storm wipes out all crops on the farm, including withered crops
+     * 
      * @return true if a storm will happen overnight, false otherwise
      */
     public boolean storm() {

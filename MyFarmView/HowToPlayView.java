@@ -14,7 +14,7 @@ import javax.swing.JTextPane;
 public class HowToPlayView extends JFrame{
     public HowToPlayView() {
         // Sets the specifications of the window
-        this.setSize(new Dimension(500, 650));
+        this.setSize(new Dimension(600, 650));
         this.setLayout(new BorderLayout(5, 5));
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -35,7 +35,7 @@ public class HowToPlayView extends JFrame{
 
         // Sets specifications of the center panel of the window
         JPanel center = new JPanel();
-        center.setSize(new Dimension(350, 475));
+        center.setSize(new Dimension(450, 475));
         
         // Title text of the tutorial
         JLabel text = new JLabel();
@@ -45,7 +45,7 @@ public class HowToPlayView extends JFrame{
 
         // Textpane where the tutorial will be placed
         JTextPane description = new JTextPane();
-        description.setPreferredSize(new Dimension(300, 475));
+        description.setPreferredSize(new Dimension(450, 475));
         description.setFont(new Font("Cambria", Font.PLAIN, 14));
         description.setEditable(false);
 
@@ -73,12 +73,14 @@ public class HowToPlayView extends JFrame{
         description.setText(description.getText() + "Storm\nThe weather's good most of the time in the farm, but there's a 2% chance that a Storm can happen every time you sleep, washing ALL crops away (yes, even withered crops). This can either be a tragedy, or a blessing...\n\n");
         description.setText(description.getText() + "New Game\n- Starts a new game\n- Can be clicked the game is over to start a new game\n\n");
         description.setText(description.getText() + "End Game\n- Ends the current game\n\n");
-        description.setText(description.getText() + "Tile Colors\n-1. Light Green \n- Tile is unoccupied\n2. Green\n- Tile has growing crop\n3. Gold\n- Crop is harvestable\n4. Brown\n- Tile has Withered Crop");
+        description.setText(description.getText() + "Tile Colors\n-1. Light Green \n- Tile is unoccupied\n2. Green\n- Tile has growing crop\n3. Gold\n- Crop is harvestable\n4. Brown\n- Tile has Withered Crop\n\n");
+        description.setText(description.getText() + "Game Over\n- happens if any of the conditions happen:\n1. The farm is completely filled with withered crops and rocks\n2. If there are no crops growing and you don't have enough objectcoins to plant a crop\n");
+        description.setText(description.getText() + "NOTE: The game checks these conditions when you sleep. So, if the second condition happens to you, press SLEEP to end the game.");
         description.setCaretPosition(0);
 
         // Scroll pane to scroll up and down the descriptions
         JScrollPane scroll = new JScrollPane(description, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(300, 475));
+        scroll.setPreferredSize(new Dimension(450, 475));
 
         // adding title text to the upper panel; adding scroll pane to the center panel
         upper.add(text);

@@ -23,8 +23,7 @@ public class Tile {
     /**
      * This constructor defines and sets the tile to its default conditions.
      * 
-     * @param xPos  the row position of the tile in the farm
-     * @param yPos  the column position of the tile in the farm
+     * @param tileNumber is the current tile being accessed by the program
      */
     public Tile(int tileNumber) {
         this.tileNumber = tileNumber;
@@ -54,7 +53,7 @@ public class Tile {
      * This method attempts to plant a crop on the tile.
      * 
      * @param crop  is the crop to be planted
-     * @return      true if crop was planted successfully, false if unsuccessful
+     *
      */
     public void plantCrop(Crop crop) {
         this.crop = crop;
@@ -98,6 +97,11 @@ public class Tile {
         return this.crop;
     }
     
+    /**
+     * This method checks if the tile is occupied by any entity
+     * 
+     * @return  true if there is an entity on the crop, false if none
+     */
     public boolean isOccupied() {
         if(this.hasRock || this.hasWitheredCrop || this.isCollateral || this.crop != null) {
             return true;
@@ -123,6 +127,11 @@ public class Tile {
         this.hasRock = hasRock;
     }
 
+    /**
+     * This method checks if the tile has been plowed
+     * 
+     * @return true if the tile is plowed, false if not
+     */
     public boolean isPlowed() {
         return this.isPlowed;
     }
@@ -140,10 +149,17 @@ public class Tile {
         return true;
     }
 
+    /**
+     * INSERT JAVADOC COMMENT HERE
+     * @return
+     */
     public boolean isCollateral() {
         return this.isCollateral;
     }
 
+    /**
+     * INSERT JAVADOC COMMENT HERE
+     */
     public void setCollateral() {
         this.isCollateral = true;
     }
@@ -174,6 +190,7 @@ public class Tile {
     
     /**
      * This method increments the water count of a tile in the case that it contains a live crop.
+     * This method also adjusts the water needs of the crop after watering it
      * 
      * @return  true if crop watering is successful, false if not
      */
@@ -204,7 +221,8 @@ public class Tile {
     }
     
     /**
-     *  This method adds to the fertilize count of a tile in the case that it contains a live crop.
+     * This method adds to the fertilize count of a tile in the case that it contains a live crop.
+     * This method also adjusts the fertilizer needs of the crop after fertilizing it
      * 
      * @return  true if crop fertilization is successful, false if not
      */
@@ -273,7 +291,7 @@ public class Tile {
     }
 
     /**
-     * This method clears any crop details but retains the withered crop
+     * This method clears any crop details but retains a withered crop if there is one present
      */
     public void removeCrop() {
         this.crop = null;
@@ -297,9 +315,9 @@ public class Tile {
     }
     
     /**
-     * This method gets the column position of the tile.
+     * This method gets the number of the tile.
      * 
-     * @return  the column position of the tile
+     * @return  the number of the tile
      */
     public int getTileNumber() {
         return this.tileNumber;   

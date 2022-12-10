@@ -627,6 +627,9 @@ public class Controller {
         // This adds an action listener to the "Submit" button in username
         this.username.getButton().addActionListener(a-> {
             this.name = this.username.getTextfieldTxt();    // gets whats inside the textfield in username
+            if(this.name.equals("")) {            // only happens if the player did not enter a name
+                this.name = "Player";
+            }
             this.username.CloseWindow();                    // closes username
             this.view.showMainFrame();                      // shows the main game
 

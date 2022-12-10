@@ -9,19 +9,23 @@ public class Model {
     private MyFarm farm;
 
     /**
-     * This constructor initializes all ranks and crops in the game
+     * This constructor instantiates all ranks and crops in the game
      */
     public Model() {
+        // Instatiating the farmer ranks
         this.rankList = new ArrayList<Rank>();
         this.farmer = new Rank("Farmer", 0, 0, 0, 0, 0, 0);
         this.registered = new Rank("Registered Farmer", 5, 1, 1, 0, 0, 200);
         this.distinguished = new Rank("Distinguished Farmer", 10, 2, 2, 1, 0, 300);
         this.legendary = new Rank("Legendary Farmer", 15, 4, 3, 2, 1, 400);
+        
+        // Adding the ranks to the rank list
         rankList.add(this.farmer);
         rankList.add(this.registered);
         rankList.add(this.distinguished);
         rankList.add(this.legendary);
 
+        // Instantiating the crops
         this.cropList = new ArrayList<Crop>();
         Crop turnip = new Crop("Turnip", "Root crop", 2, 1, 2, 0, 1, 1, 2, 5, 6, 5);
         Crop carrot = new Crop("Carrot", "Root crop", 3, 1, 2, 0, 1, 1, 2, 10, 9, 7.5);
@@ -31,6 +35,8 @@ public class Model {
         Crop sunflower = new Crop("Sunflower", "Flower", 3, 2, 3, 1, 2, 1, 1, 20, 19, 7.5);
         Crop mango = new Crop("Mango", "Fruit tree", 10, 7, 7, 4, 4, 5, 15, 100, 8, 25);
         Crop apple = new Crop("Apple", "Fruit tree", 10, 7, 7, 5, 5, 10, 15, 200, 5, 25);
+        
+        // Adding the crops to the crop list
         cropList.add(turnip);
         cropList.add(carrot);
         cropList.add(potato);
@@ -43,6 +49,7 @@ public class Model {
 
     /**
      * This method creates a new farm and a new farmer 
+     * 
      * @param name is the name of the player
      */
     public void createFarmer(String name) {
@@ -52,6 +59,7 @@ public class Model {
 
     /**
      * This method gets the farmer/player
+     * 
      * @return the farmer/player
      */
     public Farmer getFarmer() {
@@ -60,6 +68,7 @@ public class Model {
 
     /**
      * This method gets the farm
+     * 
      * @return the farm
      */
     public MyFarm getMyFarm() {
@@ -68,6 +77,7 @@ public class Model {
 
     /**
      * This method gets the list of crops
+     * 
      * @return the crop list
      */
     public ArrayList<Crop> getCropList() {
@@ -76,6 +86,7 @@ public class Model {
 
     /**
      * This method gets the list of ranks
+     * 
      * @return the rank list
      */
     public ArrayList<Rank> getRankList() {
