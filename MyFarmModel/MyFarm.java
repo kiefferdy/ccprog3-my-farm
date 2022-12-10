@@ -96,13 +96,17 @@ public class MyFarm {
             while(this.getRocks() < nRocks) {
                 for(i = 0; i < this.tileTotal; i++) {
                     int roll = rand.nextInt(101);
+                    // If the random integer generated roll is within the probability, a rock is set on the tile.
                     if(roll <= probability) {
                         land[i].setRock(true);
                     }
                 }
+                // By the time this process finishes, there's a small chance nRocks has not been satisfied yet.
+                // In this case, the algorithm will be ran once more.
             }
         }
-        // User setting of rock scatter
+
+        // The setting of rocks according to the user's configuration
         else {
             for(i = 0; i < this.tileTotal; i++) {
                 if(arrConfig[i] == 1) {
@@ -197,7 +201,7 @@ public class MyFarm {
     }
 
     /**
-     * This method checks if the tile is eligible for a crop of the fruit tree type
+     * This method checks if the tile is eligible for a crop of the fruit tree type.
      * 
      * @param tileNumber is the current tile being accessed by the program
      * 
@@ -205,14 +209,14 @@ public class MyFarm {
      */
     public boolean checkTreeEligibility(int tileNumber) {
         tileNumber++;
-        // insert comment here
+        // Tiles at the edges of the farm are immediately rejected.
         if(tileNumber < 7 || tileNumber > 44) {
             return false;
         }
 
         int emptyCount = 0;
         ArrayList<Integer> adjacentTiles = new ArrayList<Integer>();
-        // insert comment here
+        // Checks whether the adjacent tiles of the selected tile are all empty
         if(tileNumber % 5 == 2 || tileNumber % 5 == 3 || tileNumber % 5 == 4) {
             adjacentTiles.add(tileNumber - 6);
             adjacentTiles.add(tileNumber - 5);
@@ -223,7 +227,7 @@ public class MyFarm {
             adjacentTiles.add(tileNumber + 5);
             adjacentTiles.add(tileNumber + 6);
 
-            // insert comment here
+            // The number of adjacent tiles that are empty
             for (Integer i : adjacentTiles) {
                 if(!land[i - 1].isOccupied()) {
                     emptyCount++;
@@ -231,7 +235,7 @@ public class MyFarm {
             }
         }
 
-        // insert comment here
+        // If all 8 adjacent tiles are empty, the selected tile is flagged as eligible for a tree.
         if(emptyCount == 8) {
             return true;
         }
@@ -239,9 +243,8 @@ public class MyFarm {
     }
 
     /**
-     * This method sets a chance of a storm that will happen overnight
-     * 
-     * A storm wipes out all crops on the farm, including withered crops
+     * This method sets a chance of a storm that will happen overnight.
+     * A storm wipes out all crops on the farm, including withered crops.
      * 
      * @return true if a storm will happen overnight, false otherwise
      */
@@ -252,7 +255,7 @@ public class MyFarm {
 
         n = rng.nextInt(50) + 1;
 
-        // this executes if the player was lucky/unlucky enough to get the 2% chance of a storm happening overnight
+        // This executes if the player was lucky/unlucky enough to get the 2% chance of a storm happening overnight.
         if(n == 1) {
             for(int i = 0; i < tileTotal; i++) {
                 land[i].clearCrop();
